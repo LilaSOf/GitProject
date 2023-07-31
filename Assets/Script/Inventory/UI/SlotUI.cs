@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using MFarm.Inventory;
 
-public class SlotUI : MonoBehaviour
+public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     // Start is called before the first frame update
     [Header("组件获取")]
     [SerializeField] private Image slotImage;
-    [SerializeField] private Image slotHightLight;
+    public Image slotHightLight;//高亮部分
     [SerializeField] private TextMeshProUGUI amountText;
     [SerializeField] private Button button;
 
@@ -18,7 +20,11 @@ public class SlotUI : MonoBehaviour
 
     public ItemDetails itemDetails;
     public int itemAmount;
-    private bool isSelect;
+    public bool isSelect;//是否被选中
+
+    public int SlotIndex;
+
+    private InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();
     private void Start()
     {
         isSelect = false;
@@ -39,6 +45,7 @@ public class SlotUI : MonoBehaviour
         itemDetails = it;
         itemAmount = amount;
         amountText.text = amount.ToString();
+        slotImage.enabled = true;
         button.interactable = true;
     }
 
@@ -54,5 +61,58 @@ public class SlotUI : MonoBehaviour
         slotImage.enabled = false;
         amountText.text = "";
         button.interactable = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (itemAmount == 0) return;
+        isSelect = true;
+        inventoryUI.UpdateUISlotHightlight(SlotIndex);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if(itemAmount != 0)
+        {
+            inventoryUI.DragItemImage.enabled = true;
+            inventoryUI.DragItemImage.sprite = slotImage.sprite;
+            inventoryUI.DragItemImage.SetNativeSize();
+
+            isSelect = true;
+            inventoryUI.UpdateUISlotHightlight(SlotIndex);
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        inventoryUI.DragItemImage.gameObject.transform.position = Input.mousePosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)//拖拽结束
+    {
+        inventoryUI.DragItemImage.enabled = false;
+        if((eventData.pointerCurrentRaycast.gameObject != null))
+        {
+            var targetSlot = eventData.pointerCurrentRaycast.gameObject.GetComponent<SlotUI>();
+            if (targetSlot != null)
+            {
+                int targetIndex = targetSlot.SlotIndex;
+                //背包当中的数据传递
+                if (slotType == SlotType.Bag && targetSlot.slotType == SlotType.Bag)
+                {
+                    InventoryManage.Instance.SwapItem(SlotIndex, targetIndex);
+                }
+            }
+        }
+        else
+        {
+            //在地图上生成物体
+            if(itemDetails.canDropped)
+            {
+                Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+                EventHandler.CallInstantiateItemInScene(itemDetails.ID, pos);
+            }
+        }
+        inventoryUI.UpdateUISlotHightlight(-1);
     }
 }

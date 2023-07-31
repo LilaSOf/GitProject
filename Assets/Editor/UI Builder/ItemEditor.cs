@@ -156,6 +156,12 @@ public class ItemEditor : EditorWindow
             iconPrview.style.backgroundImage = newIcon == null?defaultIcon.texture : newIcon.texture;
             itemListView.Rebuild();
         });
+        itemDetailsSection.Q<ObjectField>("ItemSprite").value = activeItem.itemOnWorldSprite;
+        itemDetailsSection.Q<ObjectField>("ItemSprite").RegisterValueChangedCallback(evt =>
+        {
+            Sprite newIcon = evt.newValue as Sprite;
+            activeItem.itemOnWorldSprite = newIcon;
+        });
         //ÃèÊö¸üÐÂ
         itemDetailsSection.Q<TextField>("Description").value = activeItem.Description;
         itemDetailsSection.Q<TextField>("Description").RegisterValueChangedCallback(evt =>

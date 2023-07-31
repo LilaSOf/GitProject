@@ -11,12 +11,16 @@ namespace MFarm.Inventory
         public ItemDataList_SO itemDataList_SO;
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
-       /// <summary>
-       /// 通过ID返回物品信息
-       /// </summary>
-       /// <param name="ID">itemID</param>
-       /// <returns></returns>
-       public ItemDetails GetItemDetails(int ID)
+        private void Start()
+        {
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
+        /// <summary>
+        /// 通过ID返回物品信息
+        /// </summary>
+        /// <param name="ID">itemID</param>
+        /// <returns></returns>
+        public ItemDetails GetItemDetails(int ID)
         {
             return itemDataList_SO.ItemDataList.Find(i  => i.ID == ID); 
         }
@@ -34,6 +38,9 @@ namespace MFarm.Inventory
             }
             var index = GetItemIndexInBag(item.itemID);
             AddItemInIndex(item.itemID,1,index);
+
+            //更新背包UI
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
        /// <summary>
        /// 检查背包是否有空位
@@ -92,6 +99,29 @@ namespace MFarm.Inventory
                 InventoryItem it = new InventoryItem() { itemID = ID, itemAmount = currentAmount };
                 PlayerBag.itemList[index] = it;
             }
+        }
+
+       /// <summary>
+       /// 背包之间的物品数据交换
+       /// </summary>
+       /// <param name="formIndex">拖拽序列号</param>
+       /// <param name="targetIndex">目标序列号</param>
+       public void SwapItem(int formIndex,int targetIndex)
+        {
+            var currentItem = PlayerBag.itemList[formIndex];
+            var targetItem = PlayerBag.itemList[targetIndex];
+
+            if(targetItem.itemID != 0)
+            {
+                PlayerBag.itemList[formIndex] = targetItem;
+                PlayerBag.itemList[targetIndex] = currentItem;
+            }
+            else
+            {
+                PlayerBag.itemList[targetIndex] = currentItem;
+                PlayerBag.itemList[formIndex] = new InventoryItem();
+            }
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
     }
 }

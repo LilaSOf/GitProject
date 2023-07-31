@@ -10,3 +10,8 @@ public enum SlotType
 {
     Bag,Shop,Box
 }
+
+public enum InventoryLocation
+{
+    Player,Box,Shop
+}

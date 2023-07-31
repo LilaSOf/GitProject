@@ -8,7 +8,6 @@ public class TriggerItemFader : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
         ItemFader[] itemFader = collision.GetComponentsInChildren<ItemFader>();
         if (itemFader.Length > 0)
         {
