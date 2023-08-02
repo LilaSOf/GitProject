@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using MFarm.Inventory;
 
-public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
+public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
 {
     // Start is called before the first frame update
     [Header("组件获取")]
@@ -66,8 +66,13 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
     public void OnPointerClick(PointerEventData eventData)
     {
         if (itemAmount == 0) return;
-        isSelect = true;
+        isSelect = !isSelect;
         inventoryUI.UpdateUISlotHightlight(SlotIndex);
+
+        if(slotType == SlotType.Bag)
+        {
+            EventHandler.CallItemSecletEvent(itemDetails, isSelect);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -114,5 +119,25 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
             }
         }
         inventoryUI.UpdateUISlotHightlight(-1);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(itemAmount != 0)
+        {
+            inventoryUI.itemToolTip.gameObject.SetActive(true);
+            inventoryUI.itemToolTip.gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+            inventoryUI.itemToolTip.transform.position = transform.position + Vector3.up * 60;
+            inventoryUI.itemToolTip.SetupToolTip(itemDetails, slotType);
+        }
+        else
+        {
+            inventoryUI.itemToolTip.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        inventoryUI.itemToolTip.gameObject.SetActive(false);
     }
 }

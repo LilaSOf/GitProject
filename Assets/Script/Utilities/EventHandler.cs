@@ -16,4 +16,10 @@ public static class EventHandler
     {
         InstantiateItemInScene?.Invoke(ID, pos);
     }
+
+    public static event Action<ItemDetails, bool> ItemSecletEvent;
+    public static void CallItemSecletEvent(ItemDetails itemDetails,bool isSeclet)
+    {
+        ItemSecletEvent?.Invoke(itemDetails, isSeclet);
+    }
 }

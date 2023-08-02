@@ -13,6 +13,8 @@ namespace MFarm.Inventory
         [Header("ÍÏ×§UI")]
         public Image DragItemImage;
         private bool bagOpened;
+
+        public ItemToolTip itemToolTip;
         private void Start()
         {
             for(int i = 0; i < playerBag.Length; i++)
