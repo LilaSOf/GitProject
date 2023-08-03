@@ -64,9 +64,11 @@
     <Compile Include="Assets\Script\Player\AnimatorOverride.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Script\Inventory\Item\itemPickUp.cs" />
+    <Compile Include="Assets\Script\Time\Logic\TimeManage.cs" />
     <Compile Include="Assets\Script\Inventory\Item\ItemFader.cs" />
     <Compile Include="Assets\Script\Inventory\UI\ItemToolTip.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Script\Time\UI\TimeUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Script\Utilities\Singleton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
