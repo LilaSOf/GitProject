@@ -14,11 +14,33 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private bool IsMoving;
     private Animator[] animators;
+    private bool InputDisable = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animators = GetComponentsInChildren<Animator>();
     }
+    private void OnEnable()
+    {
+        EventHandler.BeforeFade += OnBeforFade;
+        EventHandler.AfterFade += OnAfterFade;
+    }
+    private void OnDisable()
+    {
+        EventHandler.BeforeFade -= OnBeforFade;
+        EventHandler.AfterFade -= OnAfterFade;
+    }
+
+    private void OnAfterFade(string SceneName)
+    {
+        InputDisable = false;
+    }
+
+    private void OnBeforFade(string SceneName)
+    {
+        InputDisable = true;
+    }
+
     private void PlayerInput()
     {
         InputX = Input.GetAxisRaw("Horizontal");
@@ -39,12 +61,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerInput();
+        if(!InputDisable)
+          PlayerInput();
+        else
+            IsMoving =false;
         SwitchAnimation();
     }
     private void FixedUpdate()
     {
-        Movement();
+        if(!InputDisable)
+        {
+            Movement();
+        }
     }
     private void Movement()
     {

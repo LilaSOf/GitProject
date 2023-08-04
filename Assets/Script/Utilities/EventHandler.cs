@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor.SearchService;
+
 public static class EventHandler 
 {
     // Start is called before the first frame update
@@ -33,5 +35,23 @@ public static class EventHandler
     public static void CallGameDateEvent(int hour,int day,int month,int year,Season season)
     {
         GameDateEvent?.Invoke(hour,day, month, year, season);
+    }
+
+    public static event Action<string, Vector3> TranslationEvent;
+    public static void CallTranslationEvent(string newSceneName,Vector3 targetPos)
+    {
+        TranslationEvent?.Invoke(newSceneName,targetPos);
+    }
+
+    public static event Action<string> BeforeFade;
+    public static void CallBeforeFade(string sceneName)
+    {
+        BeforeFade?.Invoke(sceneName);
+    }
+
+    public static event Action<string> AfterFade;
+    public static void CallAfterFade(string sceneName)
+    {
+        AfterFade?.Invoke(sceneName);
     }
 }

@@ -57,6 +57,7 @@ public class TimeUI : MonoBehaviour
             {
                 it.gameObject.SetActive(false);
             }
+            clockChild[0].gameObject.SetActive(true);
         }
        else
         {
