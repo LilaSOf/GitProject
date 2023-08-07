@@ -54,6 +54,11 @@ public class CursorManage : MonoBehaviour
         grid = GameObject.FindObjectOfType<Grid>();
     }
 
+    /// <summary>
+    /// 点击时更换鼠标样式
+    /// </summary>
+    /// <param name="itemDetails">点击物品的名字</param>
+    /// <param name="isSelect">点击物品是否处于被选中状态</param>
     private void OnItemSelectEvent(ItemDetails itemDetails, bool isSelect)
     {
      
