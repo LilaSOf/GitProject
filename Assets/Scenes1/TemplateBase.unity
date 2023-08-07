@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 257539525}
   - component: {fileID: 257539527}
   - component: {fileID: 257539526}
+  - component: {fileID: 257539528}
   m_Layer: 0
   m_Name: NPC Obstacle
   m_TagString: Untagged
@@ -575,6 +576,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &257539528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257539524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059a80347f550ad43b843f9747d350cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapData: {fileID: 0}
+  gridType: 3
 --- !u!1 &346513868
 GameObject:
   m_ObjectHideFlags: 0
@@ -5672,6 +5687,7 @@ GameObject:
   - component: {fileID: 729416593}
   - component: {fileID: 729416595}
   - component: {fileID: 729416594}
+  - component: {fileID: 729416596}
   m_Layer: 0
   m_Name: CanDig
   m_TagString: Untagged
@@ -5781,6 +5797,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &729416596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729416592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059a80347f550ad43b843f9747d350cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapData: {fileID: 0}
+  gridType: 0
 --- !u!1 &778504143
 GameObject:
   m_ObjectHideFlags: 0
@@ -7268,6 +7298,7 @@ GameObject:
   - component: {fileID: 1449724817}
   - component: {fileID: 1449724819}
   - component: {fileID: 1449724818}
+  - component: {fileID: 1449724820}
   m_Layer: 0
   m_Name: CanDropItem
   m_TagString: Untagged
@@ -7377,6 +7408,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1449724820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449724816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059a80347f550ad43b843f9747d350cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapData: {fileID: 0}
+  gridType: 1
 --- !u!1 &1531731969
 GameObject:
   m_ObjectHideFlags: 0
@@ -7388,6 +7433,7 @@ GameObject:
   - component: {fileID: 1531731970}
   - component: {fileID: 1531731972}
   - component: {fileID: 1531731971}
+  - component: {fileID: 1531731973}
   m_Layer: 0
   m_Name: CanPlaceFurniture
   m_TagString: Untagged
@@ -7497,6 +7543,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1531731973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531731969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059a80347f550ad43b843f9747d350cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapData: {fileID: 0}
+  gridType: 2
 --- !u!1 &1762602150
 GameObject:
   m_ObjectHideFlags: 0

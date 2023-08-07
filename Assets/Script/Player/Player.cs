@@ -24,12 +24,16 @@ public class Player : MonoBehaviour
     {
         EventHandler.BeforeFade += OnBeforFade;
         EventHandler.AfterFade += OnAfterFade;
+        EventHandler.MouseClickEvent += OnMouseClickEvenet;
     }
     private void OnDisable()
     {
         EventHandler.BeforeFade -= OnBeforFade;
         EventHandler.AfterFade -= OnAfterFade;
+        EventHandler.MouseClickEvent -= OnMouseClickEvenet;
     }
+
+
 
     private void OnAfterFade(string SceneName)
     {
@@ -40,7 +44,11 @@ public class Player : MonoBehaviour
     {
         InputDisable = true;
     }
-
+    private void OnMouseClickEvenet(Vector3 mouseWorldPos, ItemDetails itemDetails)
+    {
+        //执行动画，完毕之后执行逻辑内容
+        EventHandler.CallAfterPlayerAnimation(mouseWorldPos, itemDetails);
+    }
     private void PlayerInput()
     {
         InputX = Input.GetAxisRaw("Horizontal");

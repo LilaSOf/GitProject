@@ -73,6 +73,7 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
         {
             EventHandler.CallItemSecletEvent(itemDetails, isSelect);
         }
+        EventHandler.CallItemSelectEvent(itemDetails, isSelect);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

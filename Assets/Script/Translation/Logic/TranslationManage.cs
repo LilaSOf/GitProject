@@ -7,13 +7,14 @@ namespace MFarm.Translation
     public class TranslationManage : MonoBehaviour
     {
         // Start is called before the first frame update
-      public string NowSceneName = string.Empty;
+        public string NowSceneName;
         [SerializeField] private Transform player_Tran;
         private CanvasGroup FadeCanvasGroup;
         private bool isFade;
         private void Awake()
         {
             StartCoroutine(LoadSceneSetActive(NowSceneName));
+            EventHandler.CallSceneNameTransfer(NowSceneName);
         }
         private void OnEnable()
         {
@@ -28,11 +29,13 @@ namespace MFarm.Translation
         {
             StartCoroutine(TranlationScene(newSceneName, targetPos));
         }
-
-        private void Start()
+    
+        private IEnumerator Start()
         {
-            
             FadeCanvasGroup = FindObjectOfType<CanvasGroup>();
+            yield return null;
+            EventHandler.CallAfterFade("");
+          
         }
         /// <summary>
         /// ÇÐ»»³¡¾°
@@ -46,6 +49,7 @@ namespace MFarm.Translation
             yield return Fade(1);
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(NowSceneName));
             NowSceneName =sceneName;
+            EventHandler.CallSceneNameTransfer(NowSceneName);
             yield return LoadSceneSetActive(sceneName);
             player_Tran.position = targetPos;
             EventHandler.CallAfterFade(NowSceneName);

@@ -54,4 +54,27 @@ public static class EventHandler
     {
         AfterFade?.Invoke(sceneName);
     }
+
+    public static event Action<ItemDetails, bool> ItemSelectEvent;
+    public static void CallItemSelectEvent(ItemDetails itemDetails,bool isSelect)
+    {
+        ItemSelectEvent?.Invoke(itemDetails,isSelect);
+    }
+
+    public static event Action<string> SceneNameTransfer;
+    public static void CallSceneNameTransfer(string sceneName)
+    {
+        SceneNameTransfer.Invoke(sceneName);
+    }
+
+    public static Action<Vector3, ItemDetails> MouseClickEvent;
+    public static void CallMouseClickEvent(Vector3 pos,ItemDetails itemDetails)
+    {
+        MouseClickEvent?.Invoke(pos,itemDetails);
+    }
+    public static Action<Vector3, ItemDetails> AfterPlayerAnimation;
+    public static void CallAfterPlayerAnimation(Vector3 pos,ItemDetails itemDetails)
+    {
+        AfterPlayerAnimation.Invoke(pos,itemDetails);
+    }
 }
