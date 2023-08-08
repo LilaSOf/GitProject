@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using MFarm.Inventory;
+using UnityEditor;
 
 public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerEnterHandler,IPointerExitHandler
 {
@@ -24,14 +25,37 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
 
     public int SlotIndex;
 
+    [SerializeField]private bool MouseIntercable;
+
     private InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();
     private void Start()
     {
         isSelect = false;
-        if(itemDetails.ID == 0)
+        if(itemDetails == null )
         {
             UpdateEmptySlot();
         }
+    
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log(SlotIndex.ToString() + "+" + itemDetails == null);
+        }
+    }
+    private void OnEnable()
+    {
+        EventHandler.DropItemInBagEvent += OnDropItemInBagEvent;
+    }
+    private void OnDisable()
+    {
+        EventHandler.DropItemInBagEvent -= OnDropItemInBagEvent;
+    }
+
+    private void OnDropItemInBagEvent(bool mouseIntercable)
+    {
+        MouseIntercable = mouseIntercable;
     }
 
     /// <summary>
@@ -57,7 +81,10 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
         if(isSelect)
         {
             isSelect = false;
+            inventoryUI.UpdateUISlotHightlight(-1);
+            EventHandler.CallItemSecletEvent(itemDetails, isSelect);
         }
+        itemDetails = null;
         slotImage.enabled = false;
         amountText.text = "";
         button.interactable = false;
@@ -65,20 +92,23 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (itemAmount == 0) return;
-        isSelect = !isSelect;
-        inventoryUI.UpdateUISlotHightlight(SlotIndex);
-
-        if(slotType == SlotType.Bag)
+        if (itemDetails == null) return;
+        if(itemDetails != null)
         {
-            EventHandler.CallItemSecletEvent(itemDetails, isSelect);
+            isSelect = !isSelect;
+            inventoryUI.UpdateUISlotHightlight(SlotIndex);
+
+            if (slotType == SlotType.Bag)
+            {
+                EventHandler.CallItemSecletEvent(itemDetails, isSelect);
+            }
+            EventHandler.CallItemSelectEvent(itemDetails, isSelect);
         }
-        EventHandler.CallItemSelectEvent(itemDetails, isSelect);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(itemAmount != 0)
+        if(itemDetails != null)
         {
             inventoryUI.DragItemImage.enabled = true;
             inventoryUI.DragItemImage.sprite = slotImage.sprite;
@@ -112,11 +142,17 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
         }
         else
         {
+            if (!MouseIntercable) return;
             //在地图上生成物体
-            if(itemDetails.canDropped)
+            else
             {
-                Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-                EventHandler.CallInstantiateItemInScene(itemDetails.ID, pos);
+                if(itemDetails!= null)
+                {
+                    if (itemDetails.canDropped)
+                        EventHandler.CallDropItemEvent(itemDetails.ID, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z)));
+                  // EventHandler.CallUpdateInventoryUI
+                    //EventHandler.CallItemSecletEvent(itemDetails, isSelect);
+                }              
             }
         }
         inventoryUI.UpdateUISlotHightlight(-1);
@@ -124,7 +160,7 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(itemAmount != 0)
+        if(itemDetails != null)
         {
             inventoryUI.itemToolTip.gameObject.SetActive(true);
             inventoryUI.itemToolTip.gameObject.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);

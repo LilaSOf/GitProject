@@ -24,23 +24,32 @@ namespace MFarm.GridMap
         {
             EventHandler.SceneNameTransfer += OnSceneNameTransfer;
             EventHandler.AfterFade += OnAfterFade;
-            EventHandler.AfterPlayerAnimation += OnAfterPlayerAnimation;
+            EventHandler.ExcuteActionAfterAnimation += OnExcuteActionAfterAnimation;
         }
         private void OnDisable()
         {
             EventHandler.SceneNameTransfer -= OnSceneNameTransfer;
             EventHandler.AfterFade -= OnAfterFade;
-            EventHandler.AfterPlayerAnimation -= OnAfterPlayerAnimation;
+            EventHandler.ExcuteActionAfterAnimation -= OnExcuteActionAfterAnimation;
         }
 
-        private void OnAfterPlayerAnimation(Vector3 mouseWorldPos, ItemDetails details)
+
+     /// <summary>
+     /// 执行实际的逻辑操作
+     /// </summary>
+     /// <param name="mouseWorldPos">鼠标的世界坐标</param>
+     /// <param name="details">物品信息</param>
+     private void OnExcuteActionAfterAnimation(Vector3 mouseWorldPos, ItemDetails details)
         {
             Vector3Int mouseGridPos = gridMap.WorldToCell(mouseWorldPos);
-            switch (details.itemType)
+            if (details != null)
             {
-                case ItemType.Seed:
-                    break;
-            }
+                switch (details.itemType)
+                {
+                    case ItemType.Seed:
+                        break;
+                }
+            }  
         }
 
         private void OnAfterFade(string obj)

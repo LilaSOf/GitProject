@@ -19,15 +19,17 @@ public class CursorManage : MonoBehaviour
     private Vector3Int gridPostion;
 
     private bool enableMouse;
-
+  [SerializeField]  private bool MouseIntercable;
     [SerializeField]private Transform Player_trans;
-    private ItemDetails currentItem;
+   [SerializeField] private ItemDetails currentItem;
+   
     private void Start()
     {
         CursorCanvas = GameObject.Find("CursorCanvas").GetComponent<RectTransform>();
         CursorImage = CursorCanvas.GetChild(0).GetComponent<Image>();
         mainCamera = Camera.main;
         grid = GameObject.FindObjectOfType<Grid>();
+        Player_trans = FindObjectOfType<Player>().transform;
         currentCursor = normal;
         SetCursorImage(normal);
     }
@@ -84,14 +86,15 @@ public class CursorManage : MonoBehaviour
 
     private void Update()
     {
-        CheckCursorValue();
-        InputMouse();
+        EventHandler.CallDropItemInBagEvent(MouseIntercable);
+
         if (CursorCanvas = null) { return; }
         CursorImage.transform.position = Input.mousePosition;
         if (!IsSelectUI() && enableMouse)
         {
             SetCursorImage(currentCursor);
-
+            InputMouse();
+            CheckCursorValue();
         }
         else
         {
@@ -100,9 +103,9 @@ public class CursorManage : MonoBehaviour
     }
     private void InputMouse()
     {
-        if(Input.GetMouseButtonDown(0) && enableMouse)
+        if(Input.GetMouseButtonDown(0) && MouseIntercable)
         {
-            EventHandler.MouseClickEvent(mapPostion, currentItem);
+            EventHandler.CallMouseClickEvent(mapPostion, currentItem);
         }
     }
     #region //设置鼠标样式
@@ -132,21 +135,21 @@ public class CursorManage : MonoBehaviour
         mapPostion = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -mainCamera.transform.position.z));
         gridPostion = grid.WorldToCell(mapPostion);
         Vector3Int playerPos = grid.WorldToCell(Player_trans.position);
-        TileDetails tileDetails = GridMapManage.Instance.GetKeyDict(gridPostion);
-      
         if (Mathf.Abs(gridPostion.x - playerPos.x)>currentItem.itemUseRadios || Mathf.Abs(gridPostion.y - playerPos.y)> currentItem.itemUseRadios)
         {
+            MouseIntercable = false;
             SetCursorInVild();
             return;
         }
-     //   Debug.Log("鼠标在两格内");
+        TileDetails tileDetails = GridMapManage.Instance.GetKeyDict(gridPostion);
+        //   Debug.Log("鼠标在两格内");
         if (tileDetails != null)
         {
 
             switch(currentItem.itemType)
             {
                 case ItemType.Commodity:
-                    if(currentItem.canDropped && tileDetails.canDropItem) { SetCursorVild(); }
+                    if(currentItem.canDropped && tileDetails.canDropItem) { SetCursorVild(); MouseIntercable = true; }
                     break;
             }
         }
@@ -154,6 +157,7 @@ public class CursorManage : MonoBehaviour
         {
             SetCursorInVild();
         }
+      
     }
    /// <summary>
    /// 判断是否接触到UI

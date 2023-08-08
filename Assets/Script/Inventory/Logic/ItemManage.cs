@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.PlayerSettings;
 
 namespace MFarm.Inventory
 {
@@ -11,9 +12,10 @@ namespace MFarm.Inventory
     {
         // Start is called before the first frame update
         public Item itemPrefab;
+        public Item bounceItemPrefab;
         [SerializeField]
         private Transform ItemParent;
-
+        private Transform Player_Tran =>FindObjectOfType<Player>().transform;
         private Dictionary<string, List<SceneItem>> sceneItemDict = new Dictionary<string, List<SceneItem>>();
         private void Start()
         {
@@ -24,14 +26,17 @@ namespace MFarm.Inventory
             EventHandler.InstantiateItemInScene += OnInstantiateItemInScene;
             EventHandler.BeforeFade += OnBeforFade;
             EventHandler.AfterFade += OnAfterFade;
+            EventHandler.DropItemEvent += OnDropItemEvent;
         }
         private void OnDisable()
         {
             EventHandler.InstantiateItemInScene -= OnInstantiateItemInScene;
             EventHandler.BeforeFade -= OnBeforFade;
             EventHandler.AfterFade -= OnAfterFade;
+            EventHandler.DropItemEvent -= OnDropItemEvent;
         }
 
+      
         private void OnBeforFade(string SceneName)
         {
             GetSceneItem(SceneName);
@@ -47,6 +52,13 @@ namespace MFarm.Inventory
         {
             var it = Instantiate(itemPrefab, pos, Quaternion.identity, ItemParent);
             it.itemID = id;
+        }
+        private void OnDropItemEvent(int ID, Vector3 Pos)
+        {
+            var it = Instantiate(bounceItemPrefab, Player_Tran.position, Quaternion.identity, ItemParent);
+            it.itemID = ID;
+            var dir = (Pos - Player_Tran.position).normalized;
+            it.GetComponent<ItemBounce>().InitBounceItem(Pos, dir);
         }
 
         /// <summary>

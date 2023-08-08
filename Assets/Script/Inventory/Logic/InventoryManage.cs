@@ -11,10 +11,25 @@ namespace MFarm.Inventory
         public ItemDataList_SO itemDataList_SO;
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
+
         private void Start()
         {
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
+        private void OnEnable()
+        {
+            EventHandler.DropItemEvent += OnDropItemEvenet;
+        }
+        private void OnDisable()
+        {
+            EventHandler.DropItemEvent -= OnDropItemEvenet;
+        }
+
+        private void OnDropItemEvenet(int ID, Vector3 Pos)
+        {
+            RemoveItem(ID, 1);
+        }
+
         /// <summary>
         /// 通过ID返回物品信息
         /// </summary>
@@ -123,6 +138,29 @@ namespace MFarm.Inventory
             }
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
+        /// <summary>
+        /// 移除背包当中的物品
+        /// </summary>
+        /// <param name="ItemID">物品ID</param>
+        /// <param name="removeAmount">物品数量</param>
+        public void RemoveItem(int ItemID,int removeAmount)
+        {
+            var index = GetItemIndexInBag(ItemID);
+            if (PlayerBag.itemList[index].itemAmount>removeAmount)
+            {
+                int amount = PlayerBag.itemList[index].itemAmount - removeAmount; 
+                var item = new InventoryItem() {itemID = ItemID,itemAmount =amount };
+                PlayerBag.itemList[index] = item;
+            }
+            else if(PlayerBag.itemList[index].itemAmount == removeAmount)
+            {
+                var item = new InventoryItem();
+                PlayerBag.itemList[index] = item;
+            }
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
+        }
     }
+
+
 }
 

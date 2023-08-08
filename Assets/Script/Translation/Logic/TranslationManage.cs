@@ -14,7 +14,7 @@ namespace MFarm.Translation
         private void Awake()
         {
             StartCoroutine(LoadSceneSetActive(NowSceneName));
-            EventHandler.CallSceneNameTransfer(NowSceneName);
+           
         }
         private void OnEnable()
         {
@@ -35,7 +35,7 @@ namespace MFarm.Translation
             FadeCanvasGroup = FindObjectOfType<CanvasGroup>();
             yield return null;
             EventHandler.CallAfterFade("");
-          
+            EventHandler.CallSceneNameTransfer(NowSceneName);
         }
         /// <summary>
         /// ÇÐ»»³¡¾°

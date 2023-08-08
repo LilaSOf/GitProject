@@ -23,7 +23,6 @@ public class GridMap : MonoBehaviour
                 mapData.TileProperties.Clear();
             }
         }
-        EventHandler.AfterFade += OnAfterFade;
 
     }
     private void OnDisable()
@@ -35,13 +34,8 @@ public class GridMap : MonoBehaviour
 
             if(mapData!=null) { EditorUtility.SetDirty(mapData);}
         }
-        EventHandler.AfterFade -= OnAfterFade;
     }
 
-    private void OnAfterFade(string obj)
-    {
-       
-    }
 
     private void UpdateTileMapProperty()
     {

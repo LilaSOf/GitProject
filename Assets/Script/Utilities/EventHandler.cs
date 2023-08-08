@@ -19,6 +19,12 @@ public static class EventHandler
         InstantiateItemInScene?.Invoke(ID, pos);
     }
 
+    public static event Action<int, Vector3> DropItemEvent;
+    public static void CallDropItemEvent(int id,Vector3 pos)
+    {
+        DropItemEvent?.Invoke(id, pos);
+    }
+
     public static event Action<ItemDetails, bool> ItemSecletEvent;
     public static void CallItemSecletEvent(ItemDetails itemDetails,bool isSeclet)
     {
@@ -72,9 +78,17 @@ public static class EventHandler
     {
         MouseClickEvent?.Invoke(pos,itemDetails);
     }
-    public static Action<Vector3, ItemDetails> AfterPlayerAnimation;
-    public static void CallAfterPlayerAnimation(Vector3 pos,ItemDetails itemDetails)
+
+
+    public static Action<Vector3, ItemDetails> ExcuteActionAfterAnimation;
+    public static void CallExcuteActionAfterAnimation(Vector3 pos,ItemDetails itemDetails)
     {
-        AfterPlayerAnimation.Invoke(pos,itemDetails);
+        ExcuteActionAfterAnimation.Invoke(pos,itemDetails);
+    }
+
+    public static Action<bool> DropItemInBagEvent;
+    public static void CallDropItemInBagEvent(bool CanDrop)
+    {
+        DropItemInBagEvent?.Invoke(CanDrop);
     }
 }

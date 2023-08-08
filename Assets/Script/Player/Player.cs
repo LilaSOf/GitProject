@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     private void OnMouseClickEvenet(Vector3 mouseWorldPos, ItemDetails itemDetails)
     {
         //执行动画，完毕之后执行逻辑内容
-        EventHandler.CallAfterPlayerAnimation(mouseWorldPos, itemDetails);
+        EventHandler.CallExcuteActionAfterAnimation(mouseWorldPos, itemDetails);
     }
     private void PlayerInput()
     {
