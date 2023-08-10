@@ -42,6 +42,11 @@ public static class EventHandler
     {
         GameDateEvent?.Invoke(hour,day, month, year, season);
     }
+    public static event Action<int,Season> GameDayEvent;
+    public static void CallGameDayEvent(int Days,Season season)
+    {
+        GameDayEvent.Invoke(Days, season);
+    }
 
     public static event Action<string, Vector3> TranslationEvent;
     public static void CallTranslationEvent(string newSceneName,Vector3 targetPos)
@@ -90,5 +95,11 @@ public static class EventHandler
     public static void CallDropItemInBagEvent(bool CanDrop)
     {
         DropItemInBagEvent?.Invoke(CanDrop);
+    }
+
+    public static Action<int, TileDetails> PlantSeedEvent;
+    public static void CallPlantSeedEvent(int seedID,TileDetails tileDetails)
+    {
+        PlantSeedEvent?.Invoke(seedID,tileDetails);
     }
 }

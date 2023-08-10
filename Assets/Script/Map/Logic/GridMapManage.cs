@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 namespace MFarm.GridMap
 {
     public class GridMapManage : Singleton<GridMapManage>
     {
+        [Header("获取瓦片")]
+        public RuleTile digRuleTile;
+        public RuleTile waterRuleTile;
+        private Tilemap digTileMap;
+        private Tilemap waterTileMap;
+
         // Start is called before the first frame update
+        [Header("获取地图信息")]
         public List<MapData_SO> mapDataList = new List<MapData_SO>();
         private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();
         private string SceneName;
         private Grid gridMap;
+
+        [Header("时间更新地图组件")]
+        private Season currentSeason;
         private void Start()
         {
             foreach (var mapdataList in mapDataList)
@@ -25,12 +36,15 @@ namespace MFarm.GridMap
             EventHandler.SceneNameTransfer += OnSceneNameTransfer;
             EventHandler.AfterFade += OnAfterFade;
             EventHandler.ExcuteActionAfterAnimation += OnExcuteActionAfterAnimation;
+            EventHandler.GameDayEvent += OnGameDayEvent;
         }
+
         private void OnDisable()
         {
             EventHandler.SceneNameTransfer -= OnSceneNameTransfer;
             EventHandler.AfterFade -= OnAfterFade;
             EventHandler.ExcuteActionAfterAnimation -= OnExcuteActionAfterAnimation;
+            EventHandler.GameDayEvent -= OnGameDayEvent;
         }
 
 
@@ -42,19 +56,66 @@ namespace MFarm.GridMap
      private void OnExcuteActionAfterAnimation(Vector3 mouseWorldPos, ItemDetails details)
         {
             Vector3Int mouseGridPos = gridMap.WorldToCell(mouseWorldPos);
+            var currentTile = GetKeyDict(mouseGridPos);
             if (details != null)
             {
                 switch (details.itemType)
                 {
                     case ItemType.Seed:
+                        EventHandler.CallPlantSeedEvent(details.ID, currentTile);
+                        break;
+                    case ItemType.HoeTool:
+                        SetDigGround(currentTile);
+                        currentTile.canDig = false;
+                        currentTile.daysSinceDug = 0;
+                        currentTile.canDropItem = false;
+                        //音效
+                        break;
+                    case ItemType.WaterTool:
+                        SetWaterGround(currentTile);
+                        currentTile.canDig = false;
+                        currentTile.daysSinceWatered = 0;
+                        //音效
                         break;
                 }
+                UpdateTiledetailsDect(currentTile);
             }  
+        }
+
+        /// <summary>
+        /// 每天刷新一次
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="season"></param>
+        private void OnGameDayEvent(int day, Season season)
+        {
+             currentSeason = season;
+            foreach(var item in tileDetailsDict)
+            {
+                if(item.Value.daysSinceWatered>-1)
+                {
+                    item.Value.daysSinceWatered = -1;
+                }
+                if(item.Value.daysSinceDug>-1)
+                {
+                    item.Value.daysSinceDug++;
+                }
+                if(item.Value.daysSinceDug >5 && item.Value.seeItemID == -1)
+                {
+                    item.Value.canDig = true;
+                    item.Value.daysSinceDug = -1;
+                }
+            }
+            RefershMap();
         }
 
         private void OnAfterFade(string obj)
         {
             gridMap = FindObjectOfType<Grid>();
+            digTileMap = GameObject.FindWithTag("Dig").GetComponent<Tilemap>();
+            waterTileMap = GameObject.FindWithTag("WaterMap").GetComponent<Tilemap>();
+
+            RefershMap();
         }
 
         private void OnSceneNameTransfer(string obj)
@@ -130,5 +191,60 @@ namespace MFarm.GridMap
             }
             return null;
         }
+
+        private void SetDigGround(TileDetails tileDetails)
+        {
+            if(digTileMap !=null)
+            digTileMap.SetTile(new Vector3Int(tileDetails.gridX, tileDetails.gridY, 0),digRuleTile);
+        }
+        private void SetWaterGround(TileDetails tileDetails)
+        {
+            if (waterTileMap != null)
+                waterTileMap.SetTile(new Vector3Int(tileDetails.gridX, tileDetails.gridY, 0), waterRuleTile);
+        }
+       /// <summary>
+       /// 更新瓦片数据
+       /// </summary>
+       /// <param name="tileDetails"></param>
+       private void UpdateTiledetailsDect(TileDetails tileDetails)
+        {
+            string key = tileDetails.gridX + "X" + tileDetails.gridY + "Y" + SceneName;
+            tileDetailsDict[key] = tileDetails;
+        }
+
+        private void RefershMap()
+        {
+            if(digTileMap!=null)
+            digTileMap.ClearAllTiles();
+            if(waterTileMap!=null)
+            waterTileMap.ClearAllTiles() ;
+
+            DisPlayMapInformation(SceneName);
+        }
+        
+        /// <summary>
+        /// 通过数据更新地图显示
+        /// </summary>
+        /// <param name="sceneName"></param>
+        private void DisPlayMapInformation(string sceneName)
+        {
+            foreach(var tile in tileDetailsDict)
+            {
+                var key = tile.Key;
+                var details = tile.Value;
+                if(key.Contains(sceneName))
+                {
+                    if(details.daysSinceDug >-1)
+                    {
+                        SetDigGround(details);
+                    }
+                    if(details.daysSinceWatered >-1)
+                    {
+                        SetWaterGround(details);
+                    }
+                }
+            }
+        }
     }
+   
 }

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - BoundsConfiner
   - itemParent
+  - Dig
+  - WaterMap
+  - CropParent
   layers:
   - Default
   - TransparentFX

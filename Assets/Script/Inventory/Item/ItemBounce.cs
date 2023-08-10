@@ -50,7 +50,7 @@ namespace MFarm.Inventory
             IsGround = spriteRendererTrans.position.y <= transform.position.y;
             if (Vector3.Distance(transform.position, targetPos) > 0.2f)
             {
-                transform.position += (Vector3)dir * -grivaty * Distance * Time.deltaTime;
+                transform.position += (Vector3)dir * grivaty * Distance * Time.deltaTime;
             }
             if (!IsGround)
             {

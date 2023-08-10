@@ -38,6 +38,13 @@ public class TimeManage : MonoBehaviour
                 UpdateGameTime();
             }
         }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            gameDay++;
+
+            EventHandler.CallGameDayEvent(gameDay, gameSeason);
+            EventHandler.CallGameDateEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
+        }
     }
 
     private void NewGameTime()
@@ -87,6 +94,7 @@ public class TimeManage : MonoBehaviour
                             gameSeason = (Season)seasonNumber;
                         }
                     }
+                    EventHandler.CallGameDayEvent(gameDay, gameSeason);
                 }
                 EventHandler.CallGameDateEvent(gameHour,gameDay,gameMonth, gameYear, gameSeason);
             }

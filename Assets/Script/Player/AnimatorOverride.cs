@@ -32,17 +32,24 @@ public class AnimatorOverride : MonoBehaviour
         {
             ItemType.Seed => PartType.Carry,
             ItemType.Commodity => PartType.Carry,
+            ItemType.HoeTool => PartType.Hoe,
+            ItemType.WaterTool => PartType.Water,
             _ => PartType.None,
         };
         if(!isSeclet)
         {
             par = PartType.None;
+            spriteRenderer.enabled = false;
+        }
+        else if(itemDetails.canCarried)
+        {
+            spriteRenderer.sprite = itemDetails.itemOnWorldSprite;
+            spriteRenderer.enabled = isSeclet;
         }
         else
         {
-            spriteRenderer.sprite = itemDetails.itemOnWorldSprite;
+            spriteRenderer.enabled = false;
         }
-        spriteRenderer.enabled = isSeclet;
         SwitchAniamtor(par);
     }
 

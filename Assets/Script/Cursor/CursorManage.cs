@@ -148,8 +148,17 @@ public class CursorManage : MonoBehaviour
 
             switch(currentItem.itemType)
             {
+                case ItemType.Seed:
+                    if(tileDetails.daysSinceDug>-1 && tileDetails.seeItemID == -1) { SetCursorVild(); MouseIntercable = true; } else { SetCursorInVild(); MouseIntercable = false; }
+                    break;
                 case ItemType.Commodity:
-                    if(currentItem.canDropped && tileDetails.canDropItem) { SetCursorVild(); MouseIntercable = true; }
+                    if(currentItem.canDropped && tileDetails.canDropItem) { SetCursorVild(); MouseIntercable = true; } else { SetCursorInVild();MouseIntercable = false; }
+                    break;
+                case ItemType.HoeTool:
+                    if (tileDetails.canDig) { SetCursorVild(); MouseIntercable = true; } else { SetCursorInVild(); MouseIntercable = false; }
+                    break;
+                case ItemType.WaterTool:
+                    if(tileDetails.daysSinceDug >-1 && tileDetails.daysSinceWatered == -1) { SetCursorVild();MouseIntercable= true; } else { SetCursorInVild(); MouseIntercable = false; }
                     break;
             }
         }

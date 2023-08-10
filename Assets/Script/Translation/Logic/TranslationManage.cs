@@ -7,10 +7,13 @@ namespace MFarm.Translation
     public class TranslationManage : MonoBehaviour
     {
         // Start is called before the first frame update
-        public string NowSceneName;
+ 
         [SerializeField] private Transform player_Tran;
         private CanvasGroup FadeCanvasGroup;
         private bool isFade;
+        [SerializeField]
+        [Header("当前场景的名称")]
+        public string NowSceneName;
         private void Awake()
         {
             StartCoroutine(LoadSceneSetActive(NowSceneName));
@@ -32,10 +35,11 @@ namespace MFarm.Translation
     
         private IEnumerator Start()
         {
+            EventHandler.CallSceneNameTransfer(NowSceneName);
             FadeCanvasGroup = FindObjectOfType<CanvasGroup>();
             yield return null;
             EventHandler.CallAfterFade("");
-            EventHandler.CallSceneNameTransfer(NowSceneName);
+           
         }
         /// <summary>
         /// 切换场景

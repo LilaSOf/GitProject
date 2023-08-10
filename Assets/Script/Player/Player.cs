@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
     private bool IsMoving;
     private Animator[] animators;
     private bool InputDisable = false;
+
+    private float MouseX;
+    private float MouseY;
+
+    private bool useTool;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,6 +52,34 @@ public class Player : MonoBehaviour
     private void OnMouseClickEvenet(Vector3 mouseWorldPos, ItemDetails itemDetails)
     {
         //执行动画，完毕之后执行逻辑内容
+        if (itemDetails.itemType != ItemType.Furniture&& itemDetails.itemType != ItemType.Seed && itemDetails.itemType != ItemType.Commodity )
+        {
+            MouseX = mouseWorldPos.x - transform.position.x;
+            MouseY = mouseWorldPos.y - transform.position.y;
+            if (Mathf.Abs(MouseX) > Mathf.Abs(MouseY))
+                MouseY = 0;
+            else
+                MouseX = 0;
+           StartCoroutine(UseToolRoutine(mouseWorldPos, itemDetails));
+        }
+        else
+        {
+            EventHandler.CallExcuteActionAfterAnimation(mouseWorldPos, itemDetails);
+        }
+    }
+    private IEnumerator UseToolRoutine(Vector3 mouseWorldPos, ItemDetails itemDetails)
+    {
+        useTool = true;
+        InputDisable = true;
+        yield return null;
+        foreach (var anim in animators)
+        {
+            anim.SetTrigger("useTool");
+            anim.SetFloat("mouseX", MouseX);
+            anim.SetFloat("mouseY", MouseY);
+        }
+        yield return new WaitForSeconds(0.8f);
+        InputDisable = false;
         EventHandler.CallExcuteActionAfterAnimation(mouseWorldPos, itemDetails);
     }
     private void PlayerInput()
