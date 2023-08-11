@@ -77,6 +77,10 @@ namespace MFarm.GridMap
                         currentTile.daysSinceWatered = 0;
                         //“Ù–ß
                         break;
+                    case ItemType.CollectTool:
+                        Crop currentCrop = GetCropOfVector3(mouseWorldPos);
+                        if (currentCrop != null) { currentCrop.ProcessToolAction(details); }
+                        break;
                 }
                 UpdateTiledetailsDect(currentTile);
             }  
@@ -104,6 +108,11 @@ namespace MFarm.GridMap
                 {
                     item.Value.canDig = true;
                     item.Value.daysSinceDug = -1;
+                    item.Value.growthDays = -1;
+                }
+                if(item.Value.seeItemID != -1)
+                {
+                    item.Value.growthDays++;
                 }
             }
             RefershMap();
@@ -218,7 +227,10 @@ namespace MFarm.GridMap
             digTileMap.ClearAllTiles();
             if(waterTileMap!=null)
             waterTileMap.ClearAllTiles() ;
-
+            foreach(var crop in FindObjectsOfType<Crop>())
+            {
+                Destroy(crop.gameObject);
+            }
             DisPlayMapInformation(SceneName);
         }
         
@@ -228,7 +240,8 @@ namespace MFarm.GridMap
         /// <param name="sceneName"></param>
         private void DisPlayMapInformation(string sceneName)
         {
-            foreach(var tile in tileDetailsDict)
+           // Debug.Log("RefershMap");
+            foreach (var tile in tileDetailsDict)
             {
                 var key = tile.Key;
                 var details = tile.Value;
@@ -242,8 +255,27 @@ namespace MFarm.GridMap
                     {
                         SetWaterGround(details);
                     }
+                    if(details.seeItemID >-1)
+                    {
+                       // Debug.Log("SeedItemID!=-1  +" +details.seeItemID );
+                        EventHandler.CallPlantSeedEvent(details.seeItemID, details);
+                    }
                 }
             }
+        }
+
+        private Crop GetCropOfVector3(Vector3 mousePos)
+        {
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mousePos);
+            Crop currentCrop = null;
+            for(int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].GetComponent<Crop>() != null)
+                {
+                    currentCrop = colliders[i].GetComponent<Crop>();
+                }
+            }
+            return currentCrop;
         }
     }
    

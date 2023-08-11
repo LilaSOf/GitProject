@@ -1,3 +1,4 @@
+using MFarm.Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
@@ -23,6 +24,20 @@ public class AnimatorOverride : MonoBehaviour
     private void OnEnable()
     {
         EventHandler.ItemSecletEvent += OnIsSecletEvent;
+        EventHandler.HarvestInPlayerPostion += OnHarvestInPlayerPostion;
+    }
+
+    private void OnHarvestInPlayerPostion(int itemID)
+    {
+         Sprite itemSprite  = InventoryManage.Instance.GetItemDetails(itemID).itemOnWorldSprite;
+        StartCoroutine(ShowCropRender(itemSprite));
+    }
+    private IEnumerator ShowCropRender(Sprite sprite)
+    {
+        spriteRenderer.enabled = true;
+        spriteRenderer.sprite = sprite;
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.enabled = false;
     }
 
     private void OnIsSecletEvent(ItemDetails itemDetails, bool isSeclet)
@@ -34,6 +49,7 @@ public class AnimatorOverride : MonoBehaviour
             ItemType.Commodity => PartType.Carry,
             ItemType.HoeTool => PartType.Hoe,
             ItemType.WaterTool => PartType.Water,
+            ItemType.CollectTool => PartType.Collect,
             _ => PartType.None,
         };
         if(!isSeclet)
@@ -56,7 +72,9 @@ public class AnimatorOverride : MonoBehaviour
     private void OnDisable()
     {
         EventHandler.ItemSecletEvent -= OnIsSecletEvent;
+        EventHandler.HarvestInPlayerPostion += OnHarvestInPlayerPostion;
     }
+
 
     private void SwitchAniamtor(PartType partType)
     {

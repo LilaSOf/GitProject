@@ -39,10 +39,7 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log(SlotIndex.ToString() + "+" + itemDetails == null);
-        }
+       
     }
     private void OnEnable()
     {

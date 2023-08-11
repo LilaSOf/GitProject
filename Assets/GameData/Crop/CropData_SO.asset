@@ -16,11 +16,11 @@ MonoBehaviour:
   - seedItemID: 1007
     growthDays: 0100000002000000020000000200000001000000
     growthPrefabs:
-    - {fileID: 8459179008610468144, guid: 2254913b61f866440be2a6a801e75d99, type: 3}
-    - {fileID: 8459179008610468144, guid: 2254913b61f866440be2a6a801e75d99, type: 3}
-    - {fileID: 8459179008610468144, guid: 2254913b61f866440be2a6a801e75d99, type: 3}
-    - {fileID: 8459179008610468144, guid: 2254913b61f866440be2a6a801e75d99, type: 3}
-    - {fileID: 8459179008610468144, guid: 2254913b61f866440be2a6a801e75d99, type: 3}
+    - {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
+    - {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
+    - {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
+    - {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
+    - {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
     growthSprite:
     - {fileID: -2058122700, guid: bd1655396b777431e85369611fc36aed, type: 3}
     - {fileID: 1098745238, guid: bd1655396b777431e85369611fc36aed, type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
     - {fileID: -1080373613, guid: bd1655396b777431e85369611fc36aed, type: 3}
     seasons: 0000000001000000
     harvestToolItemID: f0030000
-    requireActionCount: 
+    requireActionCount: 01000000
     transferItemID: 1009
     producedItemID: f1030000
     producedMinAmount: 01000000
@@ -37,6 +37,6 @@ MonoBehaviour:
     spawnRadius: {x: 0, y: 0}
     daysToRegrow: 0
     regrowTimes: 0
-    generateAtPlayerPosition: 0
+    generateAtPlayerPosition: 1
     hasAniamtion: 0
     hasParticalEffect: 0

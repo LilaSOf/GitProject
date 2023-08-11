@@ -19,10 +19,27 @@ namespace MFarm.Inventory
         private void OnEnable()
         {
             EventHandler.DropItemEvent += OnDropItemEvenet;
+            EventHandler.PlantSeedEvent += OnPlaneSeedEvent;
+            EventHandler.HarvestInPlayerPostion += OnHarvestInPlayerPostion;
         }
         private void OnDisable()
         {
             EventHandler.DropItemEvent -= OnDropItemEvenet;
+            EventHandler.PlantSeedEvent -= OnPlaneSeedEvent;
+            EventHandler.HarvestInPlayerPostion -= OnHarvestInPlayerPostion;
+        }
+
+        private void OnHarvestInPlayerPostion(int itemID)
+        {
+            int index = GetItemIndexInBag(itemID);
+            AddItemInIndex(itemID, 1, index);
+
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
+
+        private void OnPlaneSeedEvent(int ID, TileDetails details)
+        {
+           // RemoveItem(ID, 1);
         }
 
         private void OnDropItemEvenet(int ID, Vector3 Pos)

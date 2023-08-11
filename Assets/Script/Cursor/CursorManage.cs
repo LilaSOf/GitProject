@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using MFarm.CropM;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -145,7 +144,7 @@ public class CursorManage : MonoBehaviour
         //   Debug.Log("鼠标在两格内");
         if (tileDetails != null)
         {
-
+            CropDetails cropDetails = CropManage.Instance.GetCropDetailsForID(tileDetails.seeItemID);
             switch(currentItem.itemType)
             {
                 case ItemType.Seed:
@@ -159,6 +158,16 @@ public class CursorManage : MonoBehaviour
                     break;
                 case ItemType.WaterTool:
                     if(tileDetails.daysSinceDug >-1 && tileDetails.daysSinceWatered == -1) { SetCursorVild();MouseIntercable= true; } else { SetCursorInVild(); MouseIntercable = false; }
+                    break;
+                case ItemType.CollectTool:
+                    if(cropDetails != null)
+                    {
+                        if(tileDetails.growthDays >= cropDetails.TotalGrowthDays){ SetCursorVild(); MouseIntercable = true; } else { SetCursorInVild(); MouseIntercable = false; }
+                    }
+                    else
+                    {
+                        SetCursorInVild(); MouseIntercable = false;
+                    }
                     break;
             }
         }

@@ -56,4 +56,39 @@ public class CropDetails
     public bool hasAniamtion;
     public bool hasParticalEffect;
     //TODO:特效，音效等
+
+   /// <summary>
+   /// 判断工具是否能够收获
+   /// </summary>
+   /// <param name="ItemID">工具的ID</param>
+   /// <returns></returns>
+   public bool CheckToolAvailable(int ItemID)
+    {
+        for(int i = 0;i<harvestToolItemID.Length;i++)
+        {
+            if(ItemID == harvestToolItemID[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 判断工具收获的次数
+    /// </summary>
+    /// <param name="ItemID">工具ID</param>
+    /// <returns></returns>
+    public int RequireActionAoumt(int ItemID)
+    {
+        for(int i=0;i<harvestToolItemID.Length;i++)
+        {
+            if(ItemID == harvestToolItemID[i])
+            {
+                return requireActionCount[i];
+            }
+          
+        }
+        return -1;
+    }
 }

@@ -38,7 +38,7 @@ public class TimeManage : MonoBehaviour
                 UpdateGameTime();
             }
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.K))
         {
             gameDay++;
 
