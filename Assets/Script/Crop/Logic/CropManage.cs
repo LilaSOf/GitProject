@@ -101,6 +101,7 @@ namespace MFarm.CropM
             GameObject cropInMap = Instantiate(CropPrefab, SeedPos, Quaternion.identity, cropParent);
             cropInMap.GetComponentInChildren<SpriteRenderer>().sprite = CropSprite;
             cropInMap.GetComponent<Crop>().cropDetails = cropDetails;
+            cropInMap.GetComponent<Crop>().tileDetails = tileDetails;
            // Debug.Log(tileDetails.seeItemID + "---"+tileDetails.growthDays);
         }
     }

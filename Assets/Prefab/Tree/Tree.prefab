@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8396883089958739178}
   - component: {fileID: 8396883089958739179}
   - component: {fileID: 8396883089958739177}
+  - component: {fileID: -5601090886079651760}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -48,7 +49,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13699877, y: 3.116905}
+  m_Offset: {x: 0.040853918, y: 1.5511162}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -59,7 +60,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8152835, y: 7.23381}
+  m_Size: {x: 0.8538343, y: 1.9321041}
   m_EdgeRadius: 0
 --- !u!210 &8396883089958739177
 SortingGroup:
@@ -72,6 +73,37 @@ SortingGroup:
   m_SortingLayerID: -1350158095
   m_SortingLayer: 8
   m_SortingOrder: 0
+--- !u!114 &-5601090886079651760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396883089958739180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b421b08d050a0469ea23d0bcdbd320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cropDetails:
+    seedItemID: 0
+    growthDays: 
+    growthPrefabs: []
+    growthSprite: []
+    seasons: 
+    harvestToolItemID: 
+    requireActionCount: 
+    transferItemID: 0
+    producedItemID: 
+    producedMinAmount: 
+    producedMaxAmount: 
+    spawnRadius: {x: 0, y: 0}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAniamtion: 0
+    hasParticalEffect: 0
+  harvestCropCount: 0
 --- !u!1 &8396883090719822128
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +239,7 @@ GameObject:
   - component: {fileID: 8396883091798685404}
   - component: {fileID: 8396883091798685402}
   - component: {fileID: 8396883091798685403}
+  - component: {fileID: 891185777672961691}
   m_Layer: 0
   m_Name: Tree01_Top
   m_TagString: Untagged
@@ -221,8 +254,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8396883091798685405}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.68, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -293,3 +326,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e1511b154653f40b9547d63ab4ec77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &891185777672961691
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396883091798685405}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 97fe7baf16b94594aaebb451606ab628, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

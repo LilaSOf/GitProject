@@ -86,7 +86,7 @@ public class CursorManage : MonoBehaviour
     private void Update()
     {
         EventHandler.CallDropItemInBagEvent(MouseIntercable);
-
+        Debug.Log(currentItem.itemType);
         if (CursorCanvas = null) { return; }
         CursorImage.transform.position = Input.mousePosition;
         if (!IsSelectUI() && enableMouse)
@@ -99,6 +99,7 @@ public class CursorManage : MonoBehaviour
         {
             SetCursorImage(normal);
         }
+       
     }
     private void InputMouse()
     {
@@ -145,7 +146,8 @@ public class CursorManage : MonoBehaviour
         if (tileDetails != null)
         {
             CropDetails cropDetails = CropManage.Instance.GetCropDetailsForID(tileDetails.seeItemID);
-            switch(currentItem.itemType)
+            Crop crop = GridMapManage.Instance.GetCropOfVector3(mapPostion);
+            switch (currentItem.itemType)
             {
                 case ItemType.Seed:
                     if(tileDetails.daysSinceDug>-1 && tileDetails.seeItemID == -1) { SetCursorVild(); MouseIntercable = true; } else { SetCursorInVild(); MouseIntercable = false; }
@@ -168,6 +170,17 @@ public class CursorManage : MonoBehaviour
                     {
                         SetCursorInVild(); MouseIntercable = false;
                     }
+                    break;
+                case ItemType.ChopTool:
+                    Debug.Log(crop.cropDetails.seedItemID);
+                    if (crop != null)
+                    {
+                        if (crop.CanHavest && crop.cropDetails.CheckToolAvailable(currentItem.ID))
+                        {
+                            SetCursorVild(); MouseIntercable = true;
+                        }
+                        else { SetCursorInVild(); MouseIntercable = false; }
+                    }      
                     break;
             }
         }

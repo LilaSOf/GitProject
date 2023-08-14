@@ -37,6 +37,7 @@ namespace MFarm.GridMap
             EventHandler.AfterFade += OnAfterFade;
             EventHandler.ExcuteActionAfterAnimation += OnExcuteActionAfterAnimation;
             EventHandler.GameDayEvent += OnGameDayEvent;
+            EventHandler.RefreshMap += RefershMap;
         }
 
         private void OnDisable()
@@ -45,6 +46,7 @@ namespace MFarm.GridMap
             EventHandler.AfterFade -= OnAfterFade;
             EventHandler.ExcuteActionAfterAnimation -= OnExcuteActionAfterAnimation;
             EventHandler.GameDayEvent -= OnGameDayEvent;
+            EventHandler.RefreshMap -= RefershMap;
         }
 
 
@@ -57,6 +59,7 @@ namespace MFarm.GridMap
         {
             Vector3Int mouseGridPos = gridMap.WorldToCell(mouseWorldPos);
             var currentTile = GetKeyDict(mouseGridPos);
+            Crop currentCrop = GetCropOfVector3(mouseWorldPos);
             if (details != null)
             {
                 switch (details.itemType)
@@ -78,8 +81,10 @@ namespace MFarm.GridMap
                         //音效
                         break;
                     case ItemType.CollectTool:
-                        Crop currentCrop = GetCropOfVector3(mouseWorldPos);
-                        if (currentCrop != null) { currentCrop.ProcessToolAction(details); }
+                        if (currentCrop != null) { currentCrop.ProcessToolAction(details,currentTile); }
+                        break;
+                    case ItemType.ChopTool:
+                        if (currentCrop != null) { currentCrop.ProcessToolAction(details, currentCrop.tileDetails); }
                         break;
                 }
                 UpdateTiledetailsDect(currentTile);
@@ -264,7 +269,12 @@ namespace MFarm.GridMap
             }
         }
 
-        private Crop GetCropOfVector3(Vector3 mousePos)
+      /// <summary>
+      /// 通过鼠标点击坐标获取Crop组件
+      /// </summary>
+      /// <param name="mousePos"></param>
+      /// <returns></returns>
+      public Crop GetCropOfVector3(Vector3 mousePos)
         {
             Collider2D[] colliders = Physics2D.OverlapPointAll(mousePos);
             Crop currentCrop = null;

@@ -108,4 +108,10 @@ public static class EventHandler
     {
         HarvestInPlayerPostion?.Invoke(ID);
     }
+
+    public static Action RefreshMap;
+    public static void CallRefreshMap()
+    {
+        RefreshMap?.Invoke();
+    }
 }
