@@ -56,6 +56,8 @@ public class CropDetails
     public bool hasAniamtion;
     public bool hasParticalEffect;
     //TODO:特效，音效等
+    public ParticleType particleType;
+    public Vector3 particleEffectPos;
 
    /// <summary>
    /// 判断工具是否能够收获

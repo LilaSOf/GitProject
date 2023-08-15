@@ -17,7 +17,8 @@ namespace MFarm.GridMap
         // Start is called before the first frame update
         [Header("获取地图信息")]
         public List<MapData_SO> mapDataList = new List<MapData_SO>();
-        private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();
+        private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();//储存地图信息的字典
+        private Dictionary<string,bool> firstLoadDict = new Dictionary<string,bool>();
         private string SceneName;
         private Grid gridMap;
 
@@ -28,6 +29,7 @@ namespace MFarm.GridMap
             foreach (var mapdataList in mapDataList)
             {
                 InitTileDetailsData(mapdataList);
+                firstLoadDict[mapdataList.SceneName] = true;
             }
            
         }
@@ -84,10 +86,13 @@ namespace MFarm.GridMap
                         if (currentCrop != null) { currentCrop.ProcessToolAction(details,currentTile); }
                         break;
                     case ItemType.ChopTool:
+                    case ItemType.BreakTool:
                         if (currentCrop != null) { currentCrop.ProcessToolAction(details, currentCrop.tileDetails); }
                         break;
                 }
-                UpdateTiledetailsDect(currentTile);
+               
+                    UpdateTiledetailsDect(currentTile);
+              
             }  
         }
 
@@ -128,7 +133,11 @@ namespace MFarm.GridMap
             gridMap = FindObjectOfType<Grid>();
             digTileMap = GameObject.FindWithTag("Dig").GetComponent<Tilemap>();
             waterTileMap = GameObject.FindWithTag("WaterMap").GetComponent<Tilemap>();
-
+            if (firstLoadDict[SceneName])
+            {
+                EventHandler.CallGeneratCropEvent();
+                firstLoadDict[SceneName] = false;
+            }
             RefershMap();
         }
 
@@ -198,12 +207,8 @@ namespace MFarm.GridMap
         public TileDetails GetKeyDict(Vector3Int pos)
         {
             string key = pos.x + "X" + pos.y + "Y" +SceneName;
-            TileDetails tileDetails;
-            if(tileDetailsDict.TryGetValue(key, out tileDetails))
-            {
-                return (tileDetails);
-            }
-            return null;
+          
+            return GetTileDetails(key);
         }
 
         private void SetDigGround(TileDetails tileDetails)
@@ -220,10 +225,17 @@ namespace MFarm.GridMap
        /// 更新瓦片数据
        /// </summary>
        /// <param name="tileDetails"></param>
-       private void UpdateTiledetailsDect(TileDetails tileDetails)
+       public void UpdateTiledetailsDect(TileDetails tileDetails)
         {
             string key = tileDetails.gridX + "X" + tileDetails.gridY + "Y" + SceneName;
-            tileDetailsDict[key] = tileDetails;
+            if (tileDetailsDict.ContainsKey(key))
+            {
+                tileDetailsDict[key] = tileDetails;
+            }
+            else
+            {
+                tileDetailsDict.Add(key, tileDetails);
+            }
         }
 
         private void RefershMap()

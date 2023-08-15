@@ -114,4 +114,16 @@ public static class EventHandler
     {
         RefreshMap?.Invoke();
     }
+
+    public static Action<ParticleType, Vector3> ParticleEffectEvent;
+    public static void CallParticleEffectEvent(ParticleType particleType,Vector3 pos)
+    {
+        ParticleEffectEvent?.Invoke(particleType,pos);
+    }
+
+    public static Action GeneratCropEvent;
+    public static void CallGeneratCropEvent()
+    {
+        GeneratCropEvent?.Invoke();
+    }
 }

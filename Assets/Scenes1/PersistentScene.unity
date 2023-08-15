@@ -436,9 +436,15 @@ MonoBehaviour:
   - partType: 4
     partName: 2
     overrideController: {fileID: 22100000, guid: 834579bc5cc74f5499f626e4e7e45730, type: 2}
+  - partType: 6
+    partName: 2
+    overrideController: {fileID: 22100000, guid: 3ed32ce86edcb574191893e1f92712bb, type: 2}
   - partType: 5
     partName: 2
     overrideController: {fileID: 22100000, guid: 9739267373644e64391a01fcd820340d, type: 2}
+  - partType: 3
+    partName: 2
+    overrideController: {fileID: 22100000, guid: 3ed32ce86edcb574191893e1f92712bb, type: 2}
   - partType: 0
     partName: 3
     overrideController: {fileID: 22100000, guid: 2422f206e1fa4be4d9aae047be8ab7f0, type: 2}
@@ -451,6 +457,9 @@ MonoBehaviour:
   - partType: 3
     partName: 3
     overrideController: {fileID: 22100000, guid: f8804ff0ca2d26f4abf5fe49da1900bf, type: 2}
+  - partType: 6
+    partName: 0
+    overrideController: {fileID: 22100000, guid: ada1878a7228e674aafc530fc9f098f2, type: 2}
   - partType: 4
     partName: 3
     overrideController: {fileID: 22100000, guid: f9fd53de3676d974d9e1dea3b5ff78f0, type: 2}
@@ -466,6 +475,9 @@ MonoBehaviour:
   - partType: 0
     partName: 1
     overrideController: {fileID: 22100000, guid: 80c37ba9d5ea0b74ca1742a00040c4b1, type: 2}
+  - partType: 2
+    partName: 3
+    overrideController: {fileID: 22100000, guid: 0783de28c5487954881b3a46a4712eb9, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1317,53 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!1 &1324107882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324107884}
+  - component: {fileID: 1324107883}
+  m_Layer: 0
+  m_Name: Pool Manage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1324107883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324107882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e43a5db93a3ace45a26901bf987426f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolPrefabList:
+  - {fileID: 1785828048753156987, guid: a7ff96752f482d0418a84f131e93d610, type: 3}
+  - {fileID: 2896983647015563385, guid: a594583d1a071674488aa8b51749725b, type: 3}
+--- !u!4 &1324107884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324107882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1445812811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1550,7 @@ MonoBehaviour:
   waterRuleTile: {fileID: 11400000, guid: e0cb83d613c52334e8c8882f41fae106, type: 2}
   mapDataList:
   - {fileID: 11400000, guid: 329b9ab6eaf583245905476a86163c35, type: 2}
+  - {fileID: 11400000, guid: c87bacea192eb4b4f855225cccb55b96, type: 2}
 --- !u!4 &1950099934
 Transform:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
 
     [SerializeField]private bool MouseIntercable;
 
-    private InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();
+    public InventoryUI inventoryUI => GetComponentInParent<InventoryUI>();
     private void Start()
     {
         isSelect = false;

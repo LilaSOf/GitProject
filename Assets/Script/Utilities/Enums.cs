@@ -31,3 +31,8 @@ public enum Season
 }
 public enum GridType
 { CanCanDig, CanDropItem, CanPlaceFurniture, NPCObstacle }
+
+public enum ParticleType 
+{
+    None,LeavesFall01,LeavesFall02
+}
