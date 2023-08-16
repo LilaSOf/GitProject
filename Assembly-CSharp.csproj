@@ -60,6 +60,7 @@
     <Compile Include="Assets\Script\Inventory\Data_SO\InventoryBag_SO.cs" />
     <Compile Include="Assets\Script\Crop\Logic\CropManage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+    <Compile Include="Assets\Script\Pool\PoolManage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Script\Inventory\Item\ItemShow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Script\Inventory\Item\itemPickUp.cs" />
     <Compile Include="Assets\Script\Crop\CropDetails.cs" />
+    <Compile Include="Assets\Script\Crop\Logic\CropGenerator.cs" />
     <Compile Include="Assets\Script\Time\Logic\TimeManage.cs" />
     <Compile Include="Assets\Script\Inventory\Item\ItemFader.cs" />
     <Compile Include="Assets\Script\Inventory\UI\ItemToolTip.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Script\Utilities\DataCollection.cs" />
     <Compile Include="Assets\Script\Inventory\Logic\InventoryManage.cs" />
+    <Compile Include="Assets\Script\Inventory\UI\ActionBarButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Script\Utilities\Attribute\SceneNameDrawer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
@@ -125,9 +128,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Script\Inventory\UI\ActionBarButton.cs" />
-    <Compile Include="Assets\Script\Pool\PoolManage.cs" />
-    <Compile Include="Assets\Script\Crop\Logic\CropGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

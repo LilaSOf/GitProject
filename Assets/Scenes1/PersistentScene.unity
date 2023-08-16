@@ -929,6 +929,7 @@ MonoBehaviour:
   tool: {fileID: 21300000, guid: 2dceb3fca6f53a24a9bd3d549753e3ad, type: 3}
   commity: {fileID: 21300000, guid: 9a9a513fe845f784cb7e6b240a45477c, type: 3}
   normal: {fileID: 21300000, guid: 34e451941ecbccd41b871668489cecbf, type: 3}
+  enableMouse: 0
   MouseIntercable: 0
   Player_trans: {fileID: 342965766}
   currentItem:
@@ -1349,6 +1350,7 @@ MonoBehaviour:
   poolPrefabList:
   - {fileID: 1785828048753156987, guid: a7ff96752f482d0418a84f131e93d610, type: 3}
   - {fileID: 2896983647015563385, guid: a594583d1a071674488aa8b51749725b, type: 3}
+  - {fileID: 1134253183446627879, guid: 474c53a579497884998beddcdc8f3844, type: 3}
 --- !u!4 &1324107884
 Transform:
   m_ObjectHideFlags: 0

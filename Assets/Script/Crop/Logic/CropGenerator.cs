@@ -35,6 +35,8 @@ public class CropGenerator : MonoBehaviour
             tile.daysSinceWatered = -1;
             tile.growthDays = GrowthDays;
             tile.seeItemID = SeedID;
+            tile.gridX = pos.x;
+            tile.gridY = pos.y;
             GridMapManage.Instance.UpdateTiledetailsDect(tile);
         }
     }

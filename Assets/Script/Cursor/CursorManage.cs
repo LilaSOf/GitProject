@@ -17,7 +17,7 @@ public class CursorManage : MonoBehaviour
     private Vector3 mapPostion;
     private Vector3Int gridPostion;
 
-    private bool enableMouse;
+   [SerializeField] private bool enableMouse;
   [SerializeField]  private bool MouseIntercable;
     [SerializeField]private Transform Player_trans;
    [SerializeField] private ItemDetails currentItem;

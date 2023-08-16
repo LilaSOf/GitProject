@@ -52,6 +52,7 @@ public class PoolManage : MonoBehaviour
         {
             ParticleType.LeavesFall01 => poolEffectList[0],
             ParticleType.LeavesFall02 => poolEffectList[1],
+            ParticleType.RockFall => poolEffectList[2],
             _ => null
         };
        GameObject obj = objPool.Get();

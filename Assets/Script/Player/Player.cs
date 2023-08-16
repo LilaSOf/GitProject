@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
             anim.SetFloat("mouseX", MouseX);
             anim.SetFloat("mouseY", MouseY);
         }
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
         InputDisable = false;
         EventHandler.CallExcuteActionAfterAnimation(mouseWorldPos, itemDetails);
     }

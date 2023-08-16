@@ -34,5 +34,5 @@ public enum GridType
 
 public enum ParticleType 
 {
-    None,LeavesFall01,LeavesFall02
+    None,LeavesFall01,LeavesFall02,RockFall
 }
