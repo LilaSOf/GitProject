@@ -87,6 +87,7 @@ namespace MFarm.GridMap
                         break;
                     case ItemType.ChopTool:
                     case ItemType.BreakTool:
+                    case ItemType.ReapTool:
                         Debug.Log(currentCrop != null);
                         if (currentCrop != null) { currentCrop.ProcessToolAction(details, currentCrop.tileDetails); }
                         break;

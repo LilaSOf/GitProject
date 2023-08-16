@@ -18,7 +18,7 @@ public enum InventoryLocation
 
 public enum PartType
 {
-    None,Carry,Break,Hoe,Water,Collect,Chop
+    None,Carry,Break,Hoe,Water,Collect,Chop, Reap
 }
 public enum PartName
 {
@@ -34,5 +34,9 @@ public enum GridType
 
 public enum ParticleType 
 {
-    None,LeavesFall01,LeavesFall02,RockFall
+    None,LeavesFall01,LeavesFall02,RockFall,GrassFall
+}
+public enum TestEnum
+{
+
 }
