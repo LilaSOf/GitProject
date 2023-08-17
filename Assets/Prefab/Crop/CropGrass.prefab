@@ -83,14 +83,15 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.9404656
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1213730653115464235, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
 --- !u!1 &4721637462086860340 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
   m_PrefabInstance: {fileID: 4854942404991196519}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8137891301807699912
+--- !u!114 &3802966223348896918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,8 +100,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4721637462086860340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adaee0056de8d3f49b78bb5af439fbc3, type: 3}
+  m_Script: {fileID: 11500000, guid: 93f7c0aa66e4f5d4aa87eaa318707d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SeedID: 1020
-  GrowthDays: 0
+  itemID: 1020
+  itemDetails:
+    ID: 0
+    itemName: 
+    itemType: 0
+    Description: 
+    itemUseRadios: 0
+    itemIcon: {fileID: 0}
+    itemOnWorldSprite: {fileID: 0}
+    canPickUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemPrice: 0
+    sellPercentage: 0

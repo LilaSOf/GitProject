@@ -1,3 +1,4 @@
+using MFarm.CropM;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,8 @@ namespace MFarm.GridMap
 
         [Header("时间更新地图组件")]
         private Season currentSeason;
+        [Header("设置场景中的杂草")]
+        private List<ReapItem> reapItemList;
         private void Start()
         {
             foreach (var mapdataList in mapDataList)
@@ -88,7 +91,7 @@ namespace MFarm.GridMap
                     case ItemType.ChopTool:
                     case ItemType.BreakTool:
                     case ItemType.ReapTool:
-                        Debug.Log(currentCrop != null);
+                       // Debug.Log(currentCrop != null);
                         if (currentCrop != null) { currentCrop.ProcessToolAction(details, currentCrop.tileDetails); }
                         break;
                 }
@@ -300,6 +303,21 @@ namespace MFarm.GridMap
                 }
             }
             return currentCrop;
+        }
+        public bool HarvestReapItemInRadious(Vector3 mousePos,ItemDetails itemDetails)
+        {
+            reapItemList = new List<ReapItem>();
+            Collider2D[] colls = new Collider2D[20];
+            Physics2D.OverlapCircleNonAlloc(mousePos, itemDetails.itemUseRadios, colls);
+            for(int i = 0;i< colls.Length;i++)
+            {
+                if (colls[i].GetComponent<ReapItem>() != null)
+                {
+                    ReapItem reapItem = colls[i].GetComponent<ReapItem>();
+                    reapItemList.Add(reapItem);
+                }
+            }
+            return reapItemList.Count > 0;
         }
     }
    

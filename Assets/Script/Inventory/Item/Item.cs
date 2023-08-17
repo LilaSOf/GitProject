@@ -34,6 +34,10 @@ namespace MFarm.Inventory
                 coll.size = newSize;
                 coll.offset = new Vector2(0, spriteRenderer.sprite.bounds.center.y);
             }
+            if(itemDetails.itemType == ItemType.ReapableScenery)
+            {
+                //Ìí¼Ó×é¼þ
+            }
         }
     }
 }

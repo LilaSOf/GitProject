@@ -173,7 +173,6 @@ public class CursorManage : MonoBehaviour
                     break;
                 case ItemType.ChopTool:
                 case ItemType.BreakTool:
-                case ItemType.ReapTool:
                     if (crop != null)
                     {
                         if (crop.CanHavest && crop.cropDetails.CheckToolAvailable(currentItem.ID))
@@ -182,6 +181,9 @@ public class CursorManage : MonoBehaviour
                         }
                     }
                     else { SetCursorInVild(); MouseIntercable = false; }
+                    break;
+                case ItemType.ReapTool:
+                    //if(GridMapManage.Instance.HarvestReapItemInRadious(mapPostion))
                     break;
             }
         }
