@@ -11,6 +11,10 @@ namespace MFarm.CropM
         private Transform Player_Trans => FindObjectOfType<Player>().transform;
 
 
+        public void InitCrop(int id)
+        {
+            cropDetails =  CropManage.Instance.GetCropDetailsForID(id);
+        }
         public void SpawnHarvestItem()
         {
 

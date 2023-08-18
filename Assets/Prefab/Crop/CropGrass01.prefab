@@ -14,7 +14,7 @@ PrefabInstance:
     - target: {fileID: 209021714441536333, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0c055f09a64a74805ad18c1f0b134fec, type: 3}
+      objectReference: {fileID: 21300000, guid: e6647f7a307d24b65957f4ef34c39562, type: 3}
     - target: {fileID: 209021714441536333, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -65,23 +65,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 209021714911601491, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_Name
-      value: CropGrass
+      value: CropGrass01
       objectReference: {fileID: 0}
     - target: {fileID: 209021714911601502, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_Size.x
-      value: 1.7462056
+      value: 0.876675
       objectReference: {fileID: 0}
     - target: {fileID: 209021714911601502, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_Size.y
-      value: 1.4871923
+      value: 1.6488358
       objectReference: {fileID: 0}
     - target: {fileID: 209021714911601502, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_Offset.x
-      value: -0.021584451
+      value: 0.01185894
       objectReference: {fileID: 0}
     - target: {fileID: 209021714911601502, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
       propertyPath: m_Offset.y
-      value: 0.9404656
+      value: 0.8596439
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1213730653115464235, guid: 3dbe6a03fac111b4d93b37e4ba3a07da, type: 3}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f7c0aa66e4f5d4aa87eaa318707d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemID: 1020
+  itemID: 1023
   itemDetails:
     ID: 0
     itemName: 
@@ -117,7 +117,7 @@ MonoBehaviour:
     canCarried: 0
     itemPrice: 0
     sellPercentage: 0
---- !u!114 &6972865760623164195
+--- !u!114 &-2428701859680852458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: MapData_Template
   m_EditorClassIdentifier: 
   SceneName: Template
+  gridWidth: 102
+  gridHeight: 54
+  gridX: -46
+  gridY: -27
   TileProperties:
   - tileCoordinate: {x: -7, y: -12}
     gridType: 0

@@ -129,6 +129,10 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Script\Inventory\Item\ItemInteractive.cs" />
+    <Compile Include="Assets\Script\AStar\Node.cs" />
+    <Compile Include="Assets\Script\AStar\GridNodes.cs" />
+    <Compile Include="Assets\Script\AStar\AStar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

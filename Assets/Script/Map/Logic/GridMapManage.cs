@@ -90,14 +90,28 @@ namespace MFarm.GridMap
                         break;
                     case ItemType.ChopTool:
                     case ItemType.BreakTool:
-                    case ItemType.ReapTool:
                        // Debug.Log(currentCrop != null);
                         if (currentCrop != null) { currentCrop.ProcessToolAction(details, currentCrop.tileDetails); }
                         break;
+                    case ItemType.ReapTool:
+                        int HarvestCount = 0;
+                        for (int i = 0;i< reapItemList.Count;i++)
+                        {
+                            EventHandler.CallParticleEffectEvent(ParticleType.GrassFall, reapItemList[i].transform.position + Vector3.up);
+                            reapItemList[i].SpawnHarvestItem();
+                            Destroy(reapItemList[i].gameObject);
+                            HarvestCount++;
+                            if(HarvestCount >=2)
+                            {
+                                break;
+                            }
+                        }
+                        break;
                 }
-               
+                  if(currentTile!= null)
+                {
                     UpdateTiledetailsDect(currentTile);
-              
+                }
             }  
         }
 
@@ -200,7 +214,7 @@ namespace MFarm.GridMap
         /// </summary>
         /// <param name="key">地图名字</param>
         /// <returns></returns>
-        private TileDetails GetTileDetails(string key)
+        public TileDetails GetTileDetails(string key)
         {
             if (tileDetailsDict.ContainsKey(key))
             {
@@ -304,20 +318,60 @@ namespace MFarm.GridMap
             }
             return currentCrop;
         }
+        /// <summary>
+        /// 判断鼠标位置是否有ReapItem
+        /// </summary>
+        /// <param name="mousePos"></param>
+        /// <param name="itemDetails"></param>
+        /// <returns></returns>
         public bool HarvestReapItemInRadious(Vector3 mousePos,ItemDetails itemDetails)
         {
             reapItemList = new List<ReapItem>();
             Collider2D[] colls = new Collider2D[20];
             Physics2D.OverlapCircleNonAlloc(mousePos, itemDetails.itemUseRadios, colls);
-            for(int i = 0;i< colls.Length;i++)
+            if(colls.Length > 0)
             {
-                if (colls[i].GetComponent<ReapItem>() != null)
+                for (int i = 0; i < colls.Length; i++)
                 {
-                    ReapItem reapItem = colls[i].GetComponent<ReapItem>();
-                    reapItemList.Add(reapItem);
+                    if (colls[i] != null)
+                    {
+                        if (colls[i].GetComponent<ReapItem>())
+                        {
+                            ReapItem reapItem = colls[i].GetComponent<ReapItem>();
+                            reapItemList.Add(reapItem);
+                        }
+                    }
                 }
             }
+         
             return reapItemList.Count > 0;
+        }
+
+       /// <summary>
+       /// 根据场景名称构建网格范围，输出范围和原点
+       /// </summary>
+       /// <param name="sceneName">场景名称</param>
+       /// <param name="gridDimensions">网格范围</param>
+       /// <param name="gridOrigin">网格原点</param>
+       /// <returns>是否拥有当前场景信息</returns>
+       public bool GetGridDimensions(string sceneName,out Vector2Int gridDimensions,out Vector2Int gridOrigin)
+        {
+            gridDimensions = Vector2Int.zero;
+            gridOrigin = Vector2Int.zero;
+            foreach(var mapData in mapDataList)
+            {
+                if(mapData.SceneName == sceneName)
+                {
+                    gridDimensions.x = mapData.gridWidth;
+                    gridDimensions.y = mapData.gridHeight;
+
+                    gridOrigin.x = mapData.gridX;
+                    gridOrigin.y = mapData.gridY;
+
+                    return true;
+                }
+            }
+            return false;
         }
     }
    

@@ -183,7 +183,11 @@ public class CursorManage : MonoBehaviour
                     else { SetCursorInVild(); MouseIntercable = false; }
                     break;
                 case ItemType.ReapTool:
-                    //if(GridMapManage.Instance.HarvestReapItemInRadious(mapPostion))
+                    if(GridMapManage.Instance.HarvestReapItemInRadious(mapPostion,currentItem))
+                    {
+                        SetCursorVild(); MouseIntercable = true;
+                    }
+                    else { SetCursorInVild(); MouseIntercable = false; }
                     break;
             }
         }

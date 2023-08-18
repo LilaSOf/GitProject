@@ -1,3 +1,4 @@
+using MFarm.CropM;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,8 @@ namespace MFarm.Inventory
             if(itemDetails.itemType == ItemType.ReapableScenery)
             {
                 //Ìí¼Ó×é¼þ
+                gameObject.AddComponent<ReapItem>();
+                gameObject.GetComponent<ReapItem>().InitCrop(itemDetails.ID);
             }
         }
     }
