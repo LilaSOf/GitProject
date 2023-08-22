@@ -8,7 +8,7 @@ using Unity.Mathematics;
 
 namespace MFarm.AStar
 {
-    public class AStar : MonoBehaviour
+    public class AStar : Singleton<AStar>
     {
         // Start is called before the first frame update
         public GridNodes gridNodes;

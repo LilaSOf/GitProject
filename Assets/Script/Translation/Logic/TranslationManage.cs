@@ -38,7 +38,7 @@ namespace MFarm.Translation
             EventHandler.CallSceneNameTransfer(NowSceneName);
             FadeCanvasGroup = FindObjectOfType<CanvasGroup>();
             yield return null;
-            EventHandler.CallAfterFade("");
+            EventHandler.CallAfterFade(NowSceneName);
            
         }
         /// <summary>

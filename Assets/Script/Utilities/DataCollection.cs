@@ -82,3 +82,11 @@ public class TileDetails
     public int growthDays = -1;
     public int daysSinceLasterHarvest = -1;
 }
+
+[System.Serializable]
+public class NPCPosition
+{
+    public Transform npcTransform;
+    public string sceneName;
+    public Vector3 position;
+}

@@ -18,4 +18,10 @@ public class Settings
 
     //场景切换
     public const float FadeDuration = 1.5f;
+
+    //NPC网格坐标
+    public const float gridCellSize = 1f;
+    public const float gridCellDiagonalSize = 1.41f;
+
+    public const float pixelSize = 0.05f; //像素大小
 }

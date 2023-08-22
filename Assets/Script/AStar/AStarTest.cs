@@ -19,6 +19,11 @@ namespace MFarm.AStar
 
         public Tilemap tilemap;
         public TileBase tileBase;
+
+        public NPCMovement nPCMovement;
+        public bool isMovement;
+        public Vector3Int targetPos;
+        public AnimationClip clip;
         private void Awake()
         {
             step = new Stack<MovementStep>();
@@ -27,6 +32,12 @@ namespace MFarm.AStar
         private void Update()
         {
             ShowPathOnGridMap();
+            if(isMovement)
+            {
+                isMovement = false;
+                NPCDetails nPCDetails = new NPCDetails(0, 0, 0, Season.´ºÌì, sceneName, targetPos, clip, 0, true);
+                nPCMovement.BulidPath(nPCDetails);
+            }
         }
 
         private void ShowPathOnGridMap()
