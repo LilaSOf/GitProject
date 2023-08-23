@@ -234,7 +234,7 @@ public class NPCMovement : MonoBehaviour
             }
             else if (scheduleDetails.targetName != currentScene)//¿ç³¡¾°ÒÆ¶¯
             {
-                SceneRoute sceneRoute = NPCManage.Instance.GetSceneRouteFormKey(currentScene, scheduleDetails.targetName);
+                SceneRoute sceneRoute = NPCManage.Instance.GetSceneRouteFormKey(currentScene.Trim(), scheduleDetails.targetName.Trim());
                 if (sceneRoute != null)
                 {
                     for (int i = 0; i < sceneRoute.scenePaths.Count; i++)

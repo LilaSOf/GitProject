@@ -47,6 +47,6 @@ public class NPCManage : Singleton<NPCManage>
    /// <returns></returns>
    public SceneRoute GetSceneRouteFormKey(string fromScene,string toScene)
     {
-        return sceneRouteDict[fromScene + toScene];
+        return sceneRouteDict[(fromScene + toScene).Trim()];
     }
 }
