@@ -4,6 +4,7 @@ using UnityEngine;
 using MFarm.AStar;
 using System;
 using MFarm.TimeManage;
+using UnityEditor.Build.Reporting;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent (typeof(Animator))]
@@ -19,8 +20,9 @@ public class NPCMovement : MonoBehaviour
     private Vector3Int targetGridPostion;//目标点的网格坐标
     private Vector3Int nextGridPostion;//下一步的网格坐标
 
+    [Header("按照时间表控制行程")]
     public ScheduleData_SO scheduleData;
-    private SortedSet<NPCDetails> scheduleSet;
+   [SerializeField] private SortedSet<NPCDetails> scheduleSet = new SortedSet<NPCDetails>();
     private NPCDetails currentSchedule;
 
     //移动的实时时间
@@ -29,8 +31,8 @@ public class NPCMovement : MonoBehaviour
 
     [Header("移动属性")]
     public float speed = 2f;
-    public float minSpeed = 1f;
-    public float maxSpeed = 3f;
+    public float minSpeed = 5f;
+    public float maxSpeed = 8f;
 
     private Vector2 dir;
 
@@ -54,6 +56,13 @@ public class NPCMovement : MonoBehaviour
     private Vector3 nextWorldPos;//npc的世界坐标
 
     private bool sceneLoad;
+    [Header("动画控制")]
+    private AnimatorOverrideController animatorOverride;
+    public AnimationClip thinkingClip;//思考动画
+    public AnimationClip normalClip;//没有特殊动画
+   [SerializeField]private float timeClip;//计时器
+    private bool isLoadScene;//是否在切换场景
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -61,19 +70,33 @@ public class NPCMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         colli = GetComponent<BoxCollider2D>();
 
+        animatorOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        animator.runtimeAnimatorController = animatorOverride;
         movementSteps = new Stack<MovementStep>();
+        foreach(var schedule in scheduleData.nPCDetails)
+        {
+             scheduleSet.Add(schedule);
+        }
+    }
+    private void Update()
+    {
+        
+        //Debug.Log(timeClip + Settings.animationChange + "Time: " +Time.time);
     }
 
     private void OnEnable()
     {
         EventHandler.AfterFade += OnAfetFade;
         EventHandler.BeforeFade += OnBeforeFade;
+        EventHandler.GameMinuteEvent += OnGameMinuteEvent;
     }
     private void OnDisable()
     {
         EventHandler.AfterFade -= OnAfetFade;
         EventHandler.BeforeFade -= OnBeforeFade;
+        EventHandler.GameMinuteEvent -= OnGameMinuteEvent;
     }
+
     private void FixedUpdate()
     {
         if(!sceneLoad)
@@ -84,7 +107,7 @@ public class NPCMovement : MonoBehaviour
         sceneLoad = false;
         grid = FindObjectOfType<Grid>();
         CheckVisable(sceneName);
-        SceneName = sceneName;
+        currentScene = sceneName;
         if (!isInit)
         {
             InitNPC();
@@ -94,6 +117,27 @@ public class NPCMovement : MonoBehaviour
     private void OnBeforeFade(string obj)
     {
         sceneLoad = true;
+    }
+    private void OnGameMinuteEvent(int minute, int hour, int day, Season season)
+    {
+        int Time = (hour * 100) + minute;
+        NPCDetails matchSchedule = null;
+        foreach(var schedule in scheduleSet)
+        {
+            if (Time == schedule.Time)
+            {
+                if (day != schedule.day && schedule.day !=0)
+                    continue;
+                if (season != schedule.season)
+                    continue;
+                matchSchedule = schedule;
+            }
+            else if(schedule.Time >Time)
+            {
+                break;
+            }
+        }
+        if(matchSchedule != null) { BulidPath(matchSchedule); }
     }
 
     private void InitNPC()
@@ -118,6 +162,13 @@ public class NPCMovement : MonoBehaviour
                 CheckVisable(SceneName);
                 TimeSpan stepTime = new TimeSpan(step.hour, step.minute, step.second);
                 MoveToGridPosition(nextGridPostion, stepTime);
+                animator.SetFloat("DirX", dir.x);
+                animator.SetFloat("DirY", dir.y);
+                animator.SetBool("Exit", true);
+            }
+            else if(!isMoving)
+            {
+                StartCoroutine(SetStopAnimation());//完成移动后设置动画情况
             }
         }
     }
@@ -129,6 +180,7 @@ public class NPCMovement : MonoBehaviour
     private IEnumerator MoveRounite(Vector3Int gridPos,TimeSpan timeSpan)
     {
         npcMove = true;
+        animator.SetBool("isMoving", true);
         nextWorldPos = GetWorldPos(gridPos);
         float distance = Vector3.Distance(nextWorldPos, transform.position);
         float timeToMove = (float)(timeSpan.TotalSeconds - GameTime.TotalSeconds);
@@ -147,6 +199,8 @@ public class NPCMovement : MonoBehaviour
         rb.position = nextWorldPos;
         currentGridPostion = gridPos;
         nextWorldPos = currentGridPostion;
+        animator.SetBool("isMoving", false);
+        timeClip = Time.time;
         npcMove = false;
     }
 
@@ -169,14 +223,46 @@ public class NPCMovement : MonoBehaviour
     /// <param name="scheduleDetails"></param>
     public void  BulidPath(NPCDetails scheduleDetails)
     {
+        if(!sceneLoad)
+        { 
         movementSteps.Clear();
         currentSchedule = scheduleDetails;
 
-        if(scheduleDetails.targetName == currentScene)
-        {
-            AStar.Instance.BuildPath(scheduleDetails.targetName,(Vector2Int)currentGridPostion, (Vector2Int)scheduleDetails.targetGridPosition, movementSteps);
-        }
+            if (scheduleDetails.targetName == currentScene)//当前场景移动
+            {
+                AStar.Instance.BuildPath(scheduleDetails.targetName, (Vector2Int)currentGridPostion, (Vector2Int)scheduleDetails.targetGridPosition, movementSteps);
+            }
+            else if (scheduleDetails.targetName != currentScene)//跨场景移动
+            {
+                SceneRoute sceneRoute = NPCManage.Instance.GetSceneRouteFormKey(currentScene, scheduleDetails.targetName);
+                if (sceneRoute != null)
+                {
+                    for (int i = 0; i < sceneRoute.scenePaths.Count; i++)
+                    {
+                        Vector2Int fromPath, goPath;
+                        ScenePath path = sceneRoute.scenePaths[i];
+                        if (path.fromGridCell.x > Settings.maxCellSize || path.fromGridCell.y > Settings.maxCellSize)
+                        {
+                            fromPath = (Vector2Int)currentGridPostion;
+                        }
+                        else
+                        {
+                            fromPath = path.fromGridCell;
+                        }
 
+                        if (path.goToGridCell.x > Settings.maxCellSize || path.goToGridCell.y > Settings.maxCellSize)
+                        {
+                            goPath = (Vector2Int)scheduleDetails.targetGridPosition;
+                        }
+                        else
+                        {
+                            goPath = path.goToGridCell;
+                        }
+                        AStar.Instance.BuildPath(path.sceneName, fromPath, goPath, movementSteps);
+                    }
+                }
+            }
+        }
         if(movementSteps .Count > 1) 
         {
             //更新每一步对应时间戳
@@ -223,6 +309,30 @@ public class NPCMovement : MonoBehaviour
     private bool MoveInDiagonal(MovementStep currentStep,MovementStep previousStep)
     {
         return (currentStep.gridCoordinate.x != previousStep.gridCoordinate.x) &&(currentStep.gridCoordinate.y != previousStep.gridCoordinate.y);
+    }
+
+   /// <summary>
+   /// 协程改变人物动画情况
+   /// </summary>
+   /// <returns></returns>
+   private IEnumerator SetStopAnimation()
+    {
+        animator.SetFloat("DirX", 0);
+        animator.SetFloat("DirY", -1);
+        animator.SetBool("Exit", false);
+        if (timeClip + Settings.animationChange <Time.time)
+        {
+            timeClip = Time.time;
+            animatorOverride[normalClip.name] = thinkingClip;
+            animator.SetBool("EventAnimation", true);
+            yield return null;
+            animator.SetBool("EventAnimation", false);
+        }
+        else
+        {
+            animatorOverride[thinkingClip.name] = normalClip;
+            // animator.SetBool("Exit", true);
+        }
     }
     #region 设置NPC显示情况
     private void SetActiveInScene()

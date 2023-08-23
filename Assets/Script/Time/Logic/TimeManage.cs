@@ -22,7 +22,7 @@ namespace MFarm.TimeManage
         private void Start()
         {
             EventHandler.CallGameDateEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
-            EventHandler.CallGameMinuteEvent(gameMinute, gameHour);
+            EventHandler.CallGameMinuteEvent(gameMinute, gameHour,gameDay,gameSeason);
         }
         private void Update()
         {
@@ -102,7 +102,7 @@ namespace MFarm.TimeManage
                     }
                     EventHandler.CallGameDateEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
                 }
-                EventHandler.CallGameMinuteEvent(gameMinute, gameHour);
+                EventHandler.CallGameMinuteEvent(gameMinute, gameHour,gameDay,gameSeason);
             }
         }
     }

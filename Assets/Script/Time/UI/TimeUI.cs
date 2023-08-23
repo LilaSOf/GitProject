@@ -44,7 +44,7 @@ public class TimeUI : MonoBehaviour
         SwithDayNightImage(hour);
     }
 
-    private void OnGameMinuteEvent(int minute, int hour)
+    private void OnGameMinuteEvent(int minute, int hour, int day, Season season)
     {
        timeText.text = hour.ToString("00") + ":" + minute.ToString("00");
     }

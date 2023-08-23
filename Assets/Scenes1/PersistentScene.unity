@@ -662,6 +662,9 @@ MonoBehaviour:
   minSpeed: 1
   maxSpeed: 3
   isMoving: 0
+  thinkingClip: {fileID: 7400000, guid: 54d560542c0284c169c56cddc7145ac6, type: 2}
+  normalClip: {fileID: 7400000, guid: 500fefed8113b4f7e8f2dc728631a63d, type: 2}
+  timeClip: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,7 +1952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad3a860b75f43547a82a8bed06e261b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Template
+  sceneName: 02_Home
   startPos: {x: -22, y: -10}
   endPos: {x: 1, y: 5}
   isShow: 0
@@ -1958,7 +1961,7 @@ MonoBehaviour:
   tileBase: {fileID: 11400000, guid: 0744e5274830a9d4eb28fae5c287914c, type: 2}
   nPCMovement: {fileID: 505425826}
   isMovement: 0
-  targetPos: {x: 1, y: 5, z: 0}
+  targetPos: {x: 7, y: -1, z: 0}
   clip: {fileID: 7400000, guid: 54d560542c0284c169c56cddc7145ac6, type: 2}
 --- !u!114 &2029504855
 MonoBehaviour:
@@ -2005,6 +2008,7 @@ MonoBehaviour:
   - npcTransform: {fileID: 505425825}
     sceneName: Template
     position: {x: -6.76, y: -5.29, z: 0}
+  sceneRoute: {fileID: 11400000, guid: cd87b4c69785063499f1998f9853e05c, type: 2}
 --- !u!1 &2113093533
 GameObject:
   m_ObjectHideFlags: 0

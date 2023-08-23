@@ -648,15 +648,6 @@ MonoBehaviour:
   - tileCoordinate: {x: -22, y: 7}
     gridType: 3
     boolTypeValue: 1
-  - tileCoordinate: {x: -21, y: -1}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -21, y: 0}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -21, y: 1}
-    gridType: 3
-    boolTypeValue: 1
   - tileCoordinate: {x: -21, y: 2}
     gridType: 3
     boolTypeValue: 1
@@ -675,15 +666,6 @@ MonoBehaviour:
   - tileCoordinate: {x: -21, y: 7}
     gridType: 3
     boolTypeValue: 1
-  - tileCoordinate: {x: -20, y: -1}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -20, y: 0}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -20, y: 1}
-    gridType: 3
-    boolTypeValue: 1
   - tileCoordinate: {x: -20, y: 2}
     gridType: 3
     boolTypeValue: 1
@@ -700,15 +682,6 @@ MonoBehaviour:
     gridType: 3
     boolTypeValue: 1
   - tileCoordinate: {x: -20, y: 7}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -19, y: -1}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -19, y: 0}
-    gridType: 3
-    boolTypeValue: 1
-  - tileCoordinate: {x: -19, y: 1}
     gridType: 3
     boolTypeValue: 1
   - tileCoordinate: {x: -19, y: 2}

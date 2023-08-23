@@ -90,3 +90,20 @@ public class NPCPosition
     public string sceneName;
     public Vector3 position;
 }
+
+[System.Serializable]
+public class SceneRoute
+{
+    public string fromSceneName;
+    public string goToSceneName;
+
+    public List<ScenePath> scenePaths;
+}
+[System.Serializable]
+public class ScenePath
+{
+    public string sceneName;
+
+    public Vector2Int fromGridCell;
+    public Vector2Int goToGridCell;
+}
