@@ -37,6 +37,10 @@ namespace MFarm.AStar
                 isMovement = false;
                 NPCDetails nPCDetails = new NPCDetails(0, 0, 0, Season.´ºÌì, sceneName, targetPos, clip, 0, true);
                 nPCMovement.BulidPath(nPCDetails);
+                foreach (MovementStep step in step)
+                {
+                    tilemap.SetTile((Vector3Int)step.gridCoordinate, tileBase);
+                }
             }
         }
 

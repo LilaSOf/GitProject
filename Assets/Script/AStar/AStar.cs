@@ -198,6 +198,11 @@ namespace MFarm.AStar
             return 14 * Xdistance + 10 * (Ydistance - Xdistance);
         }
 
+        /// <summary>
+        /// 构建路径上每一个点的具体信息
+        /// </summary>
+        /// <param name="sceneName">构建所在的场景</param>
+        /// <param name="movementSteps">用于储存信息的堆栈</param>
         private void UpdatePathOnMovementStepStack(string sceneName,Stack<MovementStep> movementSteps)
         {
             Node nextNode = targetNode;

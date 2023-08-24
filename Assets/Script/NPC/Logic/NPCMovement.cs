@@ -13,8 +13,8 @@ public class NPCMovement : MonoBehaviour
     // Start is called before the first frame update
 
     //临时变量
-   [SerializeField] private string currentScene;
-    private string targetScene;
+   [SerializeField] private string currentScene;//NPC当前所在的场景
+   private string targetScene;
 
     private Vector3Int currentGridPostion;//当前的网格坐标
     private Vector3Int targetGridPostion;//目标点的网格坐标
@@ -49,19 +49,18 @@ public class NPCMovement : MonoBehaviour
 
     private bool isInit;//NPC是否已经被初始化
 
-    private string SceneName;//获取当前场景的名称
+    [SerializeField]private string playerSceneName;//获取玩家当前场景的名称
 
-    private bool npcMove;//判断npc是否在移动
+   [SerializeField] private bool npcMove;//判断npc是否在移动
 
     private Vector3 nextWorldPos;//npc的世界坐标
 
-    private bool sceneLoad;
+    private bool sceneLoad;//场景是否在切换
     [Header("动画控制")]
     private AnimatorOverrideController animatorOverride;
     public AnimationClip thinkingClip;//思考动画
     public AnimationClip normalClip;//没有特殊动画
    [SerializeField]private float timeClip;//计时器
-    private bool isLoadScene;//是否在切换场景
 
     private void Awake()
     {
@@ -70,13 +69,15 @@ public class NPCMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         colli = GetComponent<BoxCollider2D>();
 
+        targetScene = currentScene;
+
         animatorOverride = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = animatorOverride;
-        movementSteps = new Stack<MovementStep>();
         foreach(var schedule in scheduleData.nPCDetails)
         {
              scheduleSet.Add(schedule);
         }
+
     }
     private void Update()
     {
@@ -106,8 +107,10 @@ public class NPCMovement : MonoBehaviour
     {
         sceneLoad = false;
         grid = FindObjectOfType<Grid>();
-        CheckVisable(sceneName);
-        currentScene = sceneName;
+        playerSceneName = sceneName;
+        CheckVisable();
+
+       // currentScene = sceneName;
         if (!isInit)
         {
             InitNPC();
@@ -156,12 +159,14 @@ public class NPCMovement : MonoBehaviour
 
             if (movementSteps.Count > 0)
             {
-                MovementStep step = movementSteps.Pop();
+                MovementStep step = movementSteps.Pop();//从堆栈中按顺序取出每一步的信息
                 currentScene = step.sceneName;
-                nextGridPostion = (Vector3Int)step.gridCoordinate;
-                CheckVisable(SceneName);
+                nextGridPostion = (Vector3Int)step.gridCoordinate;//构建下一步的网格坐标
+                CheckVisable();
                 TimeSpan stepTime = new TimeSpan(step.hour, step.minute, step.second);
+                //NPC走向下一步的方法
                 MoveToGridPosition(nextGridPostion, stepTime);
+                //设置动画（人物面朝方向）
                 animator.SetFloat("DirX", dir.x);
                 animator.SetFloat("DirY", dir.y);
                 animator.SetBool("Exit", true);
@@ -177,7 +182,13 @@ public class NPCMovement : MonoBehaviour
     {
         StartCoroutine(MoveRounite(gridPosition, timeSpan));
     }
-    private IEnumerator MoveRounite(Vector3Int gridPos,TimeSpan timeSpan)
+  /// <summary>
+  /// 按照A*算法构建好的路径具体移动的协程
+  /// </summary>
+  /// <param name="gridPos">下一步的位置</param>
+  /// <param name="timeSpan">对应时间</param>
+  /// <returns></returns>
+  private IEnumerator MoveRounite(Vector3Int gridPos,TimeSpan timeSpan)
     {
         npcMove = true;
         animator.SetBool("isMoving", true);
@@ -205,9 +216,10 @@ public class NPCMovement : MonoBehaviour
     }
 
 
-    private void CheckVisable(string sceneName)
+    private void CheckVisable()
     {
-        if(currentScene == sceneName)
+        Debug.Log("IsCheckVisable:   " + playerSceneName + "---CurrentScene:"+currentScene);
+        if(playerSceneName == currentScene)
         {
             SetActiveInScene();
         }
@@ -234,6 +246,7 @@ public class NPCMovement : MonoBehaviour
             }
             else if (scheduleDetails.targetName != currentScene)//跨场景移动
             {
+               // Debug.Log("跨场景移动");
                 SceneRoute sceneRoute = NPCManage.Instance.GetSceneRouteFormKey(currentScene.Trim(), scheduleDetails.targetName.Trim());
                 if (sceneRoute != null)
                 {
@@ -241,6 +254,7 @@ public class NPCMovement : MonoBehaviour
                     {
                         Vector2Int fromPath, goPath;
                         ScenePath path = sceneRoute.scenePaths[i];
+                       
                         if (path.fromGridCell.x > Settings.maxCellSize || path.fromGridCell.y > Settings.maxCellSize)
                         {
                             fromPath = (Vector2Int)currentGridPostion;
@@ -258,12 +272,15 @@ public class NPCMovement : MonoBehaviour
                         {
                             goPath = path.goToGridCell;
                         }
+                        targetScene = path.sceneName;
+                      //transform.position = (Vector3Int)fromPath;
+                        Debug.Log("from:" + fromPath.ToString() + "---to:" + goPath + "targetSceneName"+path.sceneName);
                         AStar.Instance.BuildPath(path.sceneName, fromPath, goPath, movementSteps);
                     }
                 }
             }
         }
-        if(movementSteps .Count > 1) 
+        if(movementSteps.Count > 1) 
         {
             //更新每一步对应时间戳
             UpdateTimeOnPath();

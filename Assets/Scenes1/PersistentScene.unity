@@ -636,7 +636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505425820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.76, y: -5.29, z: 0}
+  m_LocalPosition: {x: -13, y: -4.3766575, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -657,11 +657,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentScene: Template
+  targetScene: 
   scheduleData: {fileID: 11400000, guid: 00cbea8f6f185fe45be8d4d2cb43c9de, type: 2}
   speed: 2
   minSpeed: 1
   maxSpeed: 3
   isMoving: 0
+  npcMove: 0
   thinkingClip: {fileID: 7400000, guid: 54d560542c0284c169c56cddc7145ac6, type: 2}
   normalClip: {fileID: 7400000, guid: 500fefed8113b4f7e8f2dc728631a63d, type: 2}
   timeClip: 0
@@ -1961,7 +1963,7 @@ MonoBehaviour:
   tileBase: {fileID: 11400000, guid: 0744e5274830a9d4eb28fae5c287914c, type: 2}
   nPCMovement: {fileID: 505425826}
   isMovement: 0
-  targetPos: {x: 7, y: -1, z: 0}
+  targetPos: {x: 7, y: -2, z: 0}
   clip: {fileID: 7400000, guid: 54d560542c0284c169c56cddc7145ac6, type: 2}
 --- !u!114 &2029504855
 MonoBehaviour:

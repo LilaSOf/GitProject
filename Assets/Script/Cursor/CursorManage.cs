@@ -196,7 +196,7 @@ public class CursorManage : MonoBehaviour
             SetCursorInVild();
         }
       
-    }
+    } 
    /// <summary>
    /// ≈–∂œ «∑ÒΩ”¥•µΩUI
    /// </summary>

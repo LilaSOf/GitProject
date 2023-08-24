@@ -34,10 +34,6 @@ public class NPCManage : Singleton<NPCManage>
                 }
             }
         }
-        foreach(var dir in sceneRouteDict.Keys)
-        {
-            Debug.Log(dir);
-        }
     }
 
    /// <summary>
