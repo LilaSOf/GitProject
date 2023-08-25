@@ -73,5 +73,9 @@ namespace MFarm.AStar
                 }
             }
         }
+        public void showPathOn(Vector3Int pos)
+        {
+            tilemap.SetTile((Vector3Int)pos, tileBase);
+        }
     }
 }

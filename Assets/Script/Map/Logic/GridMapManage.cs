@@ -19,7 +19,7 @@ namespace MFarm.GridMap
         [Header("获取地图信息")]
         public List<MapData_SO> mapDataList = new List<MapData_SO>();
         private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();//储存地图信息的字典
-        private Dictionary<string,bool> firstLoadDict = new Dictionary<string,bool>();
+        private Dictionary<string,bool> firstLoadDict = new Dictionary<string,bool>();//地图是否首次加载
         private string SceneName;
         private Grid gridMap;
 

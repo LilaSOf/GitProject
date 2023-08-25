@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 8.8, y: 5.1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -156,3 +156,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b421b08d050a0469ea23d0bcdbd320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cropDetails:
+    seedItemID: 0
+    growthDays: 
+    growthPrefabs: []
+    growthSprite: []
+    seasons: 
+    harvestToolItemID: 
+    requireActionCount: 
+    transferItemID: 0
+    producedItemID: 
+    producedMinAmount: 
+    producedMaxAmount: 
+    spawnRadius: {x: 0, y: 0}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAniamtion: 0
+    hasParticalEffect: 0
+    particleType: 0
+    particleEffectPos: {x: 0, y: 0, z: 0}
+  harvestCropCount: 0
+  tileDetails:
+    gridX: 0
+    gridY: 0
+    canDig: 0
+    canDropItem: 0
+    canPlaceFurniture: 0
+    NPCObstacle: 0
+    daysSinceDug: -1
+    daysSinceWatered: -1
+    seeItemID: -1
+    growthDays: -1
+    daysSinceLasterHarvest: -1
+  CanHavest: 0

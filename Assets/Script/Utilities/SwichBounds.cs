@@ -11,6 +11,20 @@ public class SwichBounds : MonoBehaviour
     {
         SwitchConfinerShape();
     }
+    private void OnEnable()
+    {
+        EventHandler.AfterFade += OnAfterFade;
+    }
+    private void OnDisable()
+    {
+        EventHandler.AfterFade -= OnAfterFade;
+    }
+
+    private void OnAfterFade(string obj)
+    {
+        SwitchConfinerShape();
+    }
+
     //切换场景后调用
     private void SwitchConfinerShape()
     {

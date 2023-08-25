@@ -5,6 +5,7 @@ using MFarm.AStar;
 using System;
 using MFarm.TimeManage;
 using UnityEditor.Build.Reporting;
+using static UnityEditor.VersionControl.Asset;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent (typeof(Animator))]
@@ -62,6 +63,8 @@ public class NPCMovement : MonoBehaviour
     public AnimationClip normalClip;//没有特殊动画
    [SerializeField]private float timeClip;//计时器
 
+    //test
+    public AStarTest starTest;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -162,6 +165,10 @@ public class NPCMovement : MonoBehaviour
                 MovementStep step = movementSteps.Pop();//从堆栈中按顺序取出每一步的信息
                 currentScene = step.sceneName;
                 nextGridPostion = (Vector3Int)step.gridCoordinate;//构建下一步的网格坐标
+                if(nextGridPostion.x - currentGridPostion.x >3)
+                {
+                    transform.position = nextGridPostion;
+                }
                 CheckVisable();
                 TimeSpan stepTime = new TimeSpan(step.hour, step.minute, step.second);
                 //NPC走向下一步的方法
@@ -218,7 +225,7 @@ public class NPCMovement : MonoBehaviour
 
     private void CheckVisable()
     {
-        Debug.Log("IsCheckVisable:   " + playerSceneName + "---CurrentScene:"+currentScene);
+        //Debug.Log("IsCheckVisable:   " + playerSceneName + "---CurrentScene:"+currentScene);
         if(playerSceneName == currentScene)
         {
             SetActiveInScene();
