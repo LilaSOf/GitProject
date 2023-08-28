@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor.SearchService;
-
+using MFarm.Dialog;
 public static class EventHandler 
 {
     // Start is called before the first frame update
@@ -78,52 +78,58 @@ public static class EventHandler
         SceneNameTransfer.Invoke(sceneName);
     }
 
-    public static Action<Vector3, ItemDetails> MouseClickEvent;
+    public static event Action<Vector3, ItemDetails> MouseClickEvent;
     public static void CallMouseClickEvent(Vector3 pos,ItemDetails itemDetails)
     {
         MouseClickEvent?.Invoke(pos,itemDetails);
     }
 
 
-    public static Action<Vector3, ItemDetails> ExcuteActionAfterAnimation;
+    public static event Action<Vector3, ItemDetails> ExcuteActionAfterAnimation;
     public static void CallExcuteActionAfterAnimation(Vector3 pos,ItemDetails itemDetails)
     {
         ExcuteActionAfterAnimation.Invoke(pos,itemDetails);
     }
 
-    public static Action<bool> DropItemInBagEvent;
-    public static void CallDropItemInBagEvent(bool CanDrop)
+    public static event Action<bool> DropItemInBagEvent;
+    public static  void CallDropItemInBagEvent(bool CanDrop)
     {
         DropItemInBagEvent?.Invoke(CanDrop);
     }
 
-    public static Action<int, TileDetails> PlantSeedEvent;
+    public static event Action<int, TileDetails> PlantSeedEvent;
     public static void CallPlantSeedEvent(int seedID,TileDetails tileDetails)
     {
         PlantSeedEvent?.Invoke(seedID,tileDetails);
     }
 
-    public static Action<int> HarvestInPlayerPostion;
+    public static event Action<int> HarvestInPlayerPostion;
     public static void CallHarvestInPlayerPostion(int ID)
     {
         HarvestInPlayerPostion?.Invoke(ID);
     }
 
-    public static Action RefreshMap;
+    public static event Action RefreshMap;
     public static void CallRefreshMap()
     {
         RefreshMap?.Invoke();
     }
 
-    public static Action<ParticleType, Vector3> ParticleEffectEvent;
+    public static event Action<ParticleType, Vector3> ParticleEffectEvent;
     public static void CallParticleEffectEvent(ParticleType particleType,Vector3 pos)
     {
         ParticleEffectEvent?.Invoke(particleType,pos);
     }
 
-    public static Action GeneratCropEvent;
+    public static event Action GeneratCropEvent;
     public static void CallGeneratCropEvent()
     {
         GeneratCropEvent?.Invoke();
+    }
+
+    public static event Action<DialogDetails> ShowDialogEvent;
+    public static void CallShowDialogEvent(DialogDetails dialogDetails)
+    {
+        ShowDialogEvent?.Invoke(dialogDetails);
     }
 }

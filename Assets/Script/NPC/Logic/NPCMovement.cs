@@ -62,7 +62,7 @@ public class NPCMovement : MonoBehaviour
     public AnimationClip thinkingClip;//思考动画
     public AnimationClip normalClip;//没有特殊动画
    [SerializeField]private float timeClip;//计时器
-
+    public bool interactable;
     //test
     public AStarTest starTest;
     private void Awake()
@@ -243,7 +243,8 @@ public class NPCMovement : MonoBehaviour
     public void  BulidPath(NPCDetails scheduleDetails)
     {
         if(!sceneLoad)
-        { 
+        {
+            interactable = scheduleDetails.interactable;
         movementSteps.Clear();
         currentSchedule = scheduleDetails;
 

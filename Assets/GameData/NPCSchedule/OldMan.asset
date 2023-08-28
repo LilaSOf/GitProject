@@ -21,4 +21,4 @@ MonoBehaviour:
     targetGridPosition: {x: -1, y: 2, z: 0}
     targetClip: {fileID: 7400000, guid: db32c3897ab64466f86a8993b8e48f9e, type: 2}
     priority: 0
-    interactable: 0
+    interactable: 1
