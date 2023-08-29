@@ -62,13 +62,19 @@ namespace MFarm.Dialog
                 //传入UI显示对话
                 yield return new WaitUntil(() => result.isDone == true);
                 canTalk = true;
+                EventHandler.CallGameStateControllerEvent(GameState.Pasue);
             }
             else
             {
                 FillStack();
                 canTalk = true;
                 EventHandler.CallShowDialogEvent(null);
-                OnFinshEvent?.Invoke();
+                EventHandler.CallGameStateControllerEvent(GameState.Start);
+                if(OnFinshEvent != null)
+                {
+                    OnFinshEvent.Invoke();
+                    canTalk = false;
+                }
             }
         }
     }

@@ -40,3 +40,7 @@ public enum TestEnum
 {
 
 }
+public enum GameState
+{
+    Pasue,Start
+}

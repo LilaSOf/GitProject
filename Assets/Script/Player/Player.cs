@@ -30,15 +30,28 @@ public class Player : MonoBehaviour
         EventHandler.BeforeFade += OnBeforFade;
         EventHandler.AfterFade += OnAfterFade;
         EventHandler.MouseClickEvent += OnMouseClickEvenet;
+        EventHandler.GameStateControllerEvent += OnGameStateControllerEvent;
     }
     private void OnDisable()
     {
         EventHandler.BeforeFade -= OnBeforFade;
         EventHandler.AfterFade -= OnAfterFade;
         EventHandler.MouseClickEvent -= OnMouseClickEvenet;
+        EventHandler.GameStateControllerEvent -= OnGameStateControllerEvent;
     }
 
-
+    private void OnGameStateControllerEvent(GameState gameState)
+    {
+       switch(gameState)
+        {
+            case GameState.Start:
+                InputDisable = false;
+                break;
+            case GameState.Pasue:
+                InputDisable = true;
+                break;
+        }
+    }
 
     private void OnAfterFade(string SceneName)
     {

@@ -97,6 +97,7 @@
     <Compile Include="Assets\Script\Utilities\Enums.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
+    <Compile Include="Assets\Script\Dialog\UI\DialogUI.cs" />
     <Compile Include="Assets\Script\AStar\MovementStep.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\Script\Crop\Logic\Crop.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Script\NPC\Data\NPCDetails.cs" />
+    <Compile Include="Assets\Script\Dialog\Data\DialogDetails.cs" />
     <Compile Include="Assets\Script\NPC\Logic\NPCMovement.cs" />
     <Compile Include="Assets\Script\AStar\AStarTest.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Assets\Script\Inventory\Data_SO\ItemDataList_SO.cs" />
     <Compile Include="Assets\Script\Inventory\UI\SlotUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Script\Dialog\Logic\DialogController.cs" />
     <Compile Include="Assets\Script\Utilities\SwichBounds.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Script\Utilities\DataCollection.cs" />
@@ -140,9 +143,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Script\Dialog\UI\DialogUI.cs" />
-    <Compile Include="Assets\Script\Dialog\Data\DialogDetails.cs" />
-    <Compile Include="Assets\Script\Dialog\Logic\DialogController.cs" />
+    <Compile Include="Assets\Script\NPC\Logic\NPCFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

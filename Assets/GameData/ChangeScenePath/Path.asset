@@ -31,3 +31,12 @@ MonoBehaviour:
     - sceneName: 02_Home
       fromGridCell: {x: 99999, y: 99999}
       goToGridCell: {x: 5, y: -7}
+  - fromSceneName: Template
+    goToSceneName: 03_Shop
+    scenePaths:
+    - sceneName: 03_Shop
+      fromGridCell: {x: -13, y: 5}
+      goToGridCell: {x: 99999, y: 99999}
+    - sceneName: Template
+      fromGridCell: {x: 99999, y: 99999}
+      goToGridCell: {x: -18, y: -19}

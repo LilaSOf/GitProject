@@ -132,4 +132,23 @@ public static class EventHandler
     {
         ShowDialogEvent?.Invoke(dialogDetails);
     }
+
+    //打开商店，刷新页面的事件
+    public static event Action<SlotType, InventoryBag_SO> BaseBagOpenEvent;
+    public static void CallBaseBagOpenEvent(SlotType slotType, InventoryBag_SO baseBag)
+    {
+        BaseBagOpenEvent?.Invoke(slotType, baseBag);
+    }
+    //关闭商店的事件
+    public static event Action BagBaseCloseEvent;
+    public static void CallBagBaseCloseEvent()
+    {
+        BagBaseCloseEvent?.Invoke();
+    }
+
+    public static event Action<GameState> GameStateControllerEvent;
+    public static void CallGameStateControllerEvent(GameState controller)
+    {
+        GameStateControllerEvent?.Invoke(controller);
+    }
 }
