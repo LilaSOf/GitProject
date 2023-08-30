@@ -829,6 +829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data_SO: {fileID: 11400000, guid: 84313a7890f051e458ba3a809ff564fc, type: 2}
+  escBtn: {fileID: 0}
 --- !u!1 &505425820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +1921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDataList_SO: {fileID: 11400000, guid: f08d695703622e84795579968311e521, type: 2}
   PlayerBag: {fileID: 11400000, guid: f8dd59f094b00a2469a95981eac6c389, type: 2}
+  coin: 300
 --- !u!4 &1057481450
 Transform:
   m_ObjectHideFlags: 0

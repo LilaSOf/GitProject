@@ -11,7 +11,8 @@ namespace MFarm.Inventory
         public ItemDataList_SO itemDataList_SO;
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
-
+        [Header("人物金钱")]
+        public int coin;
         private void Start()
         {
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
@@ -58,7 +59,7 @@ namespace MFarm.Inventory
         }
 
       /// <summary>
-      /// 向背包当中添加物品
+      /// 向背包当中添加世界上物品
       /// </summary>
       /// <param name="item">需要添加的物品</param>
       /// <param name="IsDestroy">是否需要销毁该物品</param>
@@ -72,6 +73,32 @@ namespace MFarm.Inventory
             AddItemInIndex(item.itemID,1,index);
 
             //更新背包UI
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
+      /// <summary>
+      /// 交易的方法
+      /// </summary>
+      /// <param name="itemID">商品id</param>
+      /// <param name="amount">商品数量</param>
+      public void TradeItem(ItemDetails item,int amount,bool isSell)
+        {
+            var index = GetItemIndexInBag(item.ID);
+            int price = 0;
+            if(isSell)//卖
+            {
+                price = (int)(amount * item.sellPercentage * item.itemPrice);
+                coin += price;
+                RemoveItem(item.ID, amount);
+            }
+            else if(coin- (amount * item.itemPrice)>0)//买
+            {
+                price = (int)(amount * item.itemPrice);
+                coin -= price;
+                if(CheakBagCapacity())
+                {
+                    AddItemInIndex(item.ID, amount, index);
+                }
+            }
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
        /// <summary>

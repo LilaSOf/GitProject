@@ -135,6 +135,14 @@ public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDrag
                 {
                     InventoryManage.Instance.SwapItem(SlotIndex, targetIndex);
                 }
+                if(slotType == SlotType.Bag && targetSlot.slotType == SlotType.Shop)//卖出物品
+                {
+                    EventHandler.CallTradeEvent(itemDetails, true);
+                }
+                if(slotType == SlotType.Shop && targetSlot.slotType == SlotType.Bag)//买入物品
+                {
+                    EventHandler.CallTradeEvent(itemDetails, false);
+                }
             }
         }
         else

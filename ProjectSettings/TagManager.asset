@@ -9,6 +9,7 @@ TagManager:
   - Dig
   - WaterMap
   - CropParent
+  - escBtn
   layers:
   - Default
   - TransparentFX

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 namespace MFarm.Inventory
 {
     public class InventoryUI : MonoBehaviour
@@ -21,9 +22,13 @@ namespace MFarm.Inventory
         public GameObject shopPrefab;
 
         [SerializeField] private List<SlotUI> baseBagList;
+        [Header("交易")]
+        public TradeUI tradeUI;//交易面板
+        public TextMeshProUGUI coinUI;//显示金钱
         private void Start()
         {
-            for(int i = 0; i < playerBag.Length; i++)
+            coinUI.text = InventoryManage.Instance.coin.ToString();
+            for (int i = 0; i < playerBag.Length; i++)
             {
                 playerBag[i].SlotIndex = i; 
             }
@@ -34,6 +39,7 @@ namespace MFarm.Inventory
             EventHandler.UpdateInventoryUI += OnUpdateInventoryUI;
             EventHandler.BaseBagOpenEvent += OnBaseBagOpenEvent;
             EventHandler.BagBaseCloseEvent += OnBagBaseCloseEvent;
+            EventHandler.TradeEvent += OnTradeEvent;
         }
         private void Update()
         {
@@ -47,12 +53,19 @@ namespace MFarm.Inventory
             EventHandler.UpdateInventoryUI -= OnUpdateInventoryUI;
             EventHandler.BaseBagOpenEvent -= OnBaseBagOpenEvent;
             EventHandler.BagBaseCloseEvent -= OnBagBaseCloseEvent;
+            EventHandler.TradeEvent -= OnTradeEvent;
         }
 
-       /// <summary>
-       /// 关闭背包的逻辑事件
-       /// </summary>
-       private void OnBagBaseCloseEvent()
+        private void OnTradeEvent(ItemDetails details, bool isSell)//交易时调用
+        {
+            tradeUI.gameObject.SetActive(true);
+            tradeUI.SetUpUI(details, isSell);
+        }
+
+        /// <summary>
+        /// 关闭背包的逻辑事件
+        /// </summary>
+        private void OnBagBaseCloseEvent()
         {
             baseBag.SetActive(false);
             itemToolTip.gameObject.SetActive(false);
@@ -137,6 +150,7 @@ namespace MFarm.Inventory
                     }
                     break;
             }
+            coinUI.text = InventoryManage.Instance.coin.ToString();
         }
       /// <summary>
       /// 控制背包的打开和关闭

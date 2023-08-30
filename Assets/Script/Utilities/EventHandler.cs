@@ -151,4 +151,15 @@ public static class EventHandler
     {
         GameStateControllerEvent?.Invoke(controller);
     }
+
+    public static event Action<ItemDetails, bool> TradeEvent;
+  /// <summary>
+  /// 交易时的回调
+  /// </summary>
+  /// <param name="itemDetails">物品信息</param>
+  /// <param name="isSell">是否时卖出物品</param>
+  public static void CallTradeEvent(ItemDetails itemDetails,bool isSell)
+    {
+        TradeEvent?.Invoke(itemDetails, isSell);
+    }
 }

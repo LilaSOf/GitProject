@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Map\Logic\GridMap.cs" />
     <Compile Include="Assets\Script\Inventory\Data_SO\InventoryBag_SO.cs" />
+    <Compile Include="Assets\Script\NPC\Logic\NPCFunction.cs" />
+    <Compile Include="Assets\Script\Inventory\UI\TradeUI.cs" />
     <Compile Include="Assets\Script\Crop\Logic\CropManage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\Script\Pool\PoolManage.cs" />
@@ -143,7 +145,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Script\NPC\Logic\NPCFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
